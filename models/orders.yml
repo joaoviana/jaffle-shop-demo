@@ -7,7 +7,7 @@ models:
 
       {{ doc("orders_status") }}
     config:
-      tags: ["core", "ai"]
+      tags: [ "core", "ai" ]
       meta:
         pre_aggregates:
           - name: orders_daily_avg_demo
@@ -108,7 +108,7 @@ models:
             type: number
             sql: ${total_order_amount} + ${customers.average_age}
             description: "Example type:number metric that references a joined customers metric."
-            groups: ["pre-aggregations"]
+            groups: [ "pre-aggregations" ]
             drivers:
               - total_order_amount
               - customers.average_age
@@ -131,7 +131,7 @@ models:
               order_month:
                 type: date
                 sql: DATE(${orders.order_date})
-                time_intervals: [MONTH]
+                time_intervals: [ MONTH ]
     columns:
       - name: order_id
         tests:
@@ -144,7 +144,7 @@ models:
               unique_order_count:
                 type: count_distinct
                 spotlight:
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
               completed_order_count:
                 label: Completed order count
                 description: Total number of completed orders
@@ -152,7 +152,7 @@ models:
                 filters:
                   - is_completed: "true"
                 spotlight:
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
                 drivers:
                   - unique_order_count
               completed_or_shipped_order_count:
@@ -181,7 +181,7 @@ models:
                   - customers.first_name
                 spotlight:
                   owner: demo2@lightdash.com
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
                 drivers:
                   - unique_order_count
               fulfillment_rate_with_format_expression:
@@ -244,7 +244,7 @@ models:
                   THEN ${TABLE}.status
                 ELSE 'non-demo'
               END
-            groups: ["pre-aggregations"]
+            groups: [ "pre-aggregations" ]
             spotlight:
               filter_by: false
               segment_by: false
@@ -255,7 +255,7 @@ models:
           meta:
             dimension:
               type: date
-              time_intervals: ["DAY", "WEEK", "MONTH", "YEAR", "MONTH_NAME", "DAY_OF_WEEK_NAME", "QUARTER_NAME", "fiscal_quarter", "biweekly"]
+              time_intervals: [ "DAY", "WEEK", "MONTH", "YEAR", "MONTH_NAME", "DAY_OF_WEEK_NAME", "QUARTER_NAME", "fiscal_quarter", "biweekly" ]
             metrics:
               date_of_first_order:
                 type: min
@@ -297,27 +297,27 @@ models:
               constant_one:
                 type: number
                 label: Constant One
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: "1"
               table_amount:
                 type: number
                 label: Table Amount
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${TABLE}.amount
               semantic_amount:
                 type: number
                 label: Semantic Amount
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${amount}
               amount_plus_shipping:
                 type: number
                 label: Amount Plus Shipping
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${TABLE}.amount + ${shipping_cost}
               amount_plus_shipping_band:
                 type: string
                 label: Amount Plus Shipping Band
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: |
                   CASE
                     WHEN ${amount_plus_shipping} >= 100 THEN 'high'
@@ -329,7 +329,7 @@ models:
                 format: usd
                 round: 2
                 spotlight:
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
                 drivers:
                   - total_order_amount
                   - customers.unique_customer_count # cross-table driver example
@@ -341,7 +341,7 @@ models:
                   field: order_date
                   interval: DAY
                 spotlight:
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
               average_order_amount:
                 type: average
                 format: usd
@@ -377,7 +377,7 @@ models:
                 filters:
                   - is_completed: "true"
                 spotlight:
-                  categories: ["revenue_growth"]
+                  categories: [ "revenue_growth" ]
                 drivers:
                   - total_order_amount
               total_completed_order_amount_eur:
@@ -392,32 +392,32 @@ models:
               basic_sql_metric:
                 type: sum
                 label: Basic SQL Metric
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: "1"
               table_ref_metric:
                 type: sum
                 label: Table Ref Metric
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${TABLE}.amount
               semantic_ref_metric:
                 type: sum
                 label: Semantic Ref Metric
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${amount}
               mixed_expression_metric:
                 type: sum
                 label: Mixed Expression Metric
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${TABLE}.amount + ${shipping_cost}
               average_expression_metric:
                 type: average
                 label: Average Expression Metric
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${TABLE}.amount + ${shipping_cost}
               parameterized_metric_test:
                 type: sum
                 label: Parameterized Metric Test
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: |
                   CASE
                     WHEN ${lightdash.parameters.date_dim_parameter} IS NOT NULL
@@ -427,7 +427,7 @@ models:
               user_attribute_email_metric_test:
                 type: sum
                 label: User Attribute Email Metric Test
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: |
                   CASE
                     WHEN ${ld.user.email} = 'demo@lightdash.com'
@@ -437,7 +437,7 @@ models:
               param_filter_metric_test:
                 type: sum
                 label: Param Filter Metric Test
-                groups: ["pre-aggregations"]
+                groups: [ "pre-aggregations" ]
                 sql: ${amount}
                 filters:
                   - date_dim_param_test: "param is greater"
@@ -488,6 +488,11 @@ models:
         meta:
           dimension:
             type: number
+          metrics:
+            gift_card_total:
+              label: Gift Card Total
+              description: Gift card total
+              type: sum
 
       - name: order_source
         description: Channel through which the order was placed
