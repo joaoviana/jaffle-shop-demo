@@ -489,6 +489,12 @@ models:
           meta:
             dimension:
               hidden: true
+            metrics:
+              gift_card_total:
+                label: Gift Card Total
+                description: Gift card total
+                type: sum
+                format: "#,##0.###"
         meta:
           dimension:
             type: number
