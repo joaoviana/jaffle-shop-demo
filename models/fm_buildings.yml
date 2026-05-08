@@ -3,7 +3,7 @@ models:
   - name: fm_buildings
     description: Properties and facilities portfolio
     config:
-      tags: ["core"]
+      tags: [ "core" ]
       meta:
         primary_key: building_id
     columns:
@@ -137,6 +137,13 @@ models:
             avg_satisfaction:
               type: average
               description: Average tenant satisfaction
+        config:
+          meta:
+            metrics:
+              max_tenant_satisfaction:
+                label: Max Tenant Satisfaction
+                description: Maximum tenant satisfaction score
+                type: max
 
       - name: total_work_orders_ytd
         description: Work orders year to date
