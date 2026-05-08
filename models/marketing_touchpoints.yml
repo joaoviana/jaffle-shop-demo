@@ -7,7 +7,7 @@ models:
       from initial touchpoint through conversion. Includes attribution data and engagement metrics.
     config:
       meta:
-        tags: ["core"]
+        tags: [ "core" ]
         primary_key: touchpoint_id
         joins:
           - join: customers
@@ -88,12 +88,11 @@ models:
               email_touchpoints:
                 type: count
                 filters:
-                  - touchpoint_type: ["email_open", "email_click"]
+                  - touchpoint_type: [ "email_open", "email_click" ]
               ad_touchpoints:
                 type: count
                 filters:
-                  - touchpoint_type:
-                      ["display_ad", "search_ad", "retargeting_ad", "social_ad"]
+                  - touchpoint_type: [ "display_ad", "search_ad", "retargeting_ad", "social_ad" ]
 
       - name: action_taken
         description: Action the customer took (clicked, visited_site, purchased, etc.)
@@ -196,6 +195,11 @@ models:
             dimension:
               type: number
               format: usd
+            metrics:
+              total_campaign_budget:
+                label: Total Campaign Budget
+                description: Total campaign budget
+                type: sum
 
       - name: first_order
         description: Customer's first order date
