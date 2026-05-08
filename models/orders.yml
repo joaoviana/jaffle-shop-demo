@@ -483,6 +483,11 @@ models:
           meta:
             dimension:
               hidden: true
+            metrics:
+              bank_transfer_total:
+                label: Bank Transfer Total
+                description: Total revenue paid via bank transfer
+                type: sum
         meta:
           dimension:
             type: number
