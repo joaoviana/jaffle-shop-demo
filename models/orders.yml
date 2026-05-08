@@ -467,6 +467,12 @@ models:
           meta:
             dimension:
               hidden: true
+            metrics:
+              coupon_total:
+                label: Coupon Total
+                description: Total coupon spend
+                type: sum
+                format: "#,##0.###"
         meta:
           dimension:
             type: number
