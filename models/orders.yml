@@ -472,7 +472,6 @@ models:
                 label: Coupon Total
                 description: Total coupon spend
                 type: sum
-                format: "#,##0.###"
         meta:
           dimension:
             type: number
@@ -500,7 +499,6 @@ models:
                 label: Gift Card Total
                 description: Gift card total
                 type: sum
-                format: "#,##0.###"
         meta:
           dimension:
             type: number
