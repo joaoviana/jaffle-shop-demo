@@ -2,7 +2,7 @@ version: 2
 models:
   - name: customers
     config:
-      tags: ["core", "ai"]
+      tags: [ "core", "ai" ]
       meta:
         parameters:
           customer_name:
@@ -13,7 +13,7 @@ models:
               model: "customers"
         primary_key: customer_id
         spotlight:
-          categories: ["experimental"]
+          categories: [ "experimental" ]
         joins:
           - join: membership
             hidden: true
@@ -49,28 +49,28 @@ models:
             dimension:
               richText: |
                 **Customer ID:** `${ value.raw }`
-                
+
                 [View Profile](https://example.com/customer/${ value.raw }) | [Search Google](https://google.com/search?q=customer%20${ value.formatted | url_encode })
             metrics:
               unique_customer_count:
-                tags: ["ai", "period_metric"]
+                tags: [ "ai", "period_metric" ]
                 type: count_distinct
                 label: Unique customer count
                 description: Total number of customers
                 spotlight:
-                  categories: ["core", "revenue_growth"]
+                  categories: [ "core", "revenue_growth" ]
                 ai_hint: Unique customer count.
               total_order_amount_deduped:
                 type: sum_distinct
                 sql: ${orders.amount}
-                distinct_keys: [orders.order_id]
+                distinct_keys: [ orders.order_id ]
                 description: "Total order amount for each customer without double-counting. When joining customers → orders → payments, each order's amount is counted once regardless of how many payment rows exist for that order."
                 format: usd
                 round: 2
               avg_order_amount_deduped:
                 type: average_distinct
                 sql: ${orders.amount}
-                distinct_keys: [orders.order_id]
+                distinct_keys: [ orders.order_id ]
                 description: "Average order amount without double-counting. Each order's amount is averaged once regardless of how many payment rows exist."
                 format: usd
                 round: 2
@@ -117,9 +117,7 @@ models:
                 - label: "URL from value"
                   url: "https://example.com/company/${value.formatted | url_encode }"
                 - label: "URL from row value"
-                  url:
-                    "https://example.com/company/${row.customers.customer_id.raw | url_encode
-                    }"
+                  url: "https://example.com/company/${row.customers.customer_id.raw | url_encode }"
                 - label: "Invalid URL with bad reference"
                   url: "https://example.com/company/${row.customer_id.raw | url_encode }"
         meta:
@@ -145,7 +143,7 @@ models:
               sql: "CONCAT(${first_name}, ' ', ${last_name})"
               any_attributes:
                 is_demo: "true"
-                name: [demo, demo2]
+                name: [ demo, demo2 ]
               richText: |
                 {% raw %}{% if value.raw == nil %}
                 <span style="color: #999;">-</span>
@@ -190,23 +188,23 @@ models:
                 type: number
             metrics:
               date_of_first_created_customer:
-                tags: ["ai"]
+                tags: [ "ai" ]
                 type: min
               date_of_most_recent_created_customer:
-                tags: ["ai"]
+                tags: [ "ai" ]
                 spotlight:
                   visibility: hide
                 type: max
         meta:
           dimension:
-            tags: ["ai"]
+            tags: [ "ai" ]
             type: timestamp
       - name: first_order
         description: Date of the customers first order
         config:
           meta:
             dimension:
-              tags: ["ai"]
+              tags: [ "ai" ]
               hidden: true
         meta:
           dimension:
@@ -215,7 +213,7 @@ models:
         description: Date of the customers most recent order
         config:
           meta:
-            tags: ["ai"]
+            tags: [ "ai" ]
             dimension:
               hidden: true
         meta:
@@ -225,7 +223,7 @@ models:
         description: Number of days since the customers last order
         config:
           meta:
-            tags: ["ai"]
+            tags: [ "ai" ]
             dimension:
               hidden: true
         meta:
@@ -233,11 +231,10 @@ models:
             type: number
       - name: days_between_created_and_first_order
         description: >-
-          Number of days between the customer being created and making their
-          first order
+          Number of days between the customer being created and making their first order
         config:
           meta:
-            tags: ["ai"]
+            tags: [ "ai" ]
             dimension:
               hidden: true
         meta:
@@ -247,7 +244,7 @@ models:
         description: ""
         config:
           meta:
-            tags: ["ai"]
+            tags: [ "ai" ]
             dimension:
               hidden: true
         meta:
@@ -257,9 +254,14 @@ models:
         description: ""
         config:
           meta:
-            tags: ["ai"]
+            tags: [ "ai" ]
             dimension:
               hidden: true
+            metrics:
+              clv_total:
+                label: CLV Total
+                description: Total customer lifetime value
+                type: sum
         meta:
           dimension:
             type: number
