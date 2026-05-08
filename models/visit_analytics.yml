@@ -6,7 +6,7 @@ models:
       Detailed analytics for each healthcare visit, including patient demographics, vital signs,
       conditions, costs, and visit patterns. Enables analysis of care delivery efficiency and outcomes.
     config:
-      tags: ["core"]
+      tags: [ "core" ]
       meta:
         primary_key: visit_id
         joins:
@@ -51,7 +51,7 @@ models:
             type: count
             sql: "1"
             filters:
-              - visit_day_of_week: ["Saturday", "Sunday"]
+              - visit_day_of_week: [ "Saturday", "Sunday" ]
             label: "Weekend Visits"
 
           # Follow-up and care continuity
@@ -376,6 +376,11 @@ models:
                   "Bradycardia (<60 bpm)": "#2196F3"
                   "Normal (60-100 bpm)": "#4CAF50"
                   "Tachycardia (>100 bpm)": "#FF5722"
+            metrics:
+              avg_heart_rate:
+                label: Avg Heart Rate
+                description: Average heart rate
+                type: average
 
       - name: temperature
         description: Body temperature in Fahrenheit
