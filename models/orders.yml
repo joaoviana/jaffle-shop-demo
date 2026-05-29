@@ -266,6 +266,8 @@ models:
                   Fiscal quarter formatted as FY[year]-Q[quarter] (e.g. FY2024-Q1).
                   Fiscal year starts November 1: Q1=Nov-Jan, Q2=Feb-Apr, Q3=May-Jul, Q4=Aug-Oct.
                   Use this dimension to group orders by fiscal quarter.
+                ai_hint: |
+                  Use this dimension whenever the user wants to group or filter by fiscal quarter. Returns formatted quarter labels such as 'FY2024-Q1', 'FY2024-Q2', not raw dates or timestamps. This is the correct fiscal quarter field — do NOT use order_date_fiscal_quarter, which returns individual date values (e.g. '2023-03-15 00:00:00') and cannot be used for quarter-level grouping.
                 sql: |
                   CASE
                     WHEN EXTRACT(MONTH FROM ${TABLE}.order_date) >= 11
