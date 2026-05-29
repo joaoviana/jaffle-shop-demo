@@ -1,0 +1,9 @@
+- id: dbs
+  kind: acronym
+  content: DBS = patients with diabetes issues (Diabetes Business Segment or similar internal terminology).
+  terms:
+    - DBS
+    - diabetes
+  objects:
+    - patient_health_scores
+  global: false
