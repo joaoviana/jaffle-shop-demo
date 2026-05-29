@@ -256,6 +256,8 @@ models:
             dimension:
               type: date
               time_intervals: [ "DAY", "WEEK", "MONTH", "YEAR", "MONTH_NAME", "DAY_OF_WEEK_NAME", "QUARTER_NAME", "fiscal_quarter", "biweekly" ]
+              ai_hint: |
+                Use order_date_fiscal_quarter to group orders by fiscal quarter. This dimension returns formatted fiscal quarter labels such as 'FY2024-Q1', 'FY2024-Q2', not raw dates. The fiscal year starts November 1 (Q1 = Nov-Jan, Q2 = Feb-Apr, Q3 = May-Jul, Q4 = Aug-Oct). Always prefer order_date_fiscal_quarter over order_date_month or order_date_quarter_name when the user asks for fiscal quarter grouping.
             metrics:
               date_of_first_order:
                 type: min
