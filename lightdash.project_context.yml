@@ -1,0 +1,52 @@
+version: 1
+entries:
+  - id: gc
+    kind: definition
+    content: "'GC' = gift-card payments (payment_method = 'gift_card'), not a fulfillment center."
+    terms: [GC, gift card]
+    objects: [payments_payment_method]
+  - id: order-status
+    kind: definition
+    content: "Order status values are: placed, shipped, completed, return_pending, returned."
+    terms: [placed, shipped, completed, returned, return pending]
+    objects: [orders_status]
+  - id: fulfillment-center-geography
+    kind: definition
+    content: "Fulfillment centers are geographic regions: east_coast, west_coast, central."
+    terms: [west coast, east coast, central, warehouse, fulfillment center, FC]
+    objects: [orders_fulfillment_center]
+  - id: active-subscription
+    kind: context
+    content: "An active subscription has subscription_status = 'Current'; the is_active boolean is deprecated."
+    terms: [active, active subscriptions, current]
+    objects: [subscriptions_subscription_status, subscriptions_is_active]
+  - id: payment-method
+    kind: definition
+    content: "Payment methods: credit_card, coupon, bank_transfer, gift_card. 'Card type' usually means payment_method."
+    terms: [card type, payment method, credit card, bank transfer]
+    objects: [payments_payment_method]
+  - id: revenue-by-customer
+    kind: context
+    content: "For revenue per customer, attribute payments via customer_order_payments (or sum_distinct on payment_id) to avoid order->payment fan-out double-counting."
+    terms: [revenue by customer, total revenue, revenue per customer]
+    objects: [customer_order_payments, payments_payment_id]
+  - id: high-risk-patients
+    kind: definition
+    content: "Patient risk tiers by health_risk_score: Low (<40), Medium (40-69), High (>=70). 'High-risk' = score >= 70."
+    terms: [high risk, high-risk, low risk, medium risk, risk tier]
+    objects: [patient_health_scores_health_risk_score]
+  - id: overdue-patients
+    kind: context
+    content: "Patients 'overdue' for a visit have days_since_last_visit > 180."
+    terms: [overdue, overdue for visit]
+    objects: [patient_health_scores_days_since_last_visit]
+  - id: plan-tiers
+    kind: context
+    content: "Subscription plan names (free, silver, gold, platinum, diamond) live in the plan table; join subscriptions.plan_id = plan.id."
+    terms: [platinum, gold, silver, diamond, plan, membership tier]
+    objects: [subscriptions_plan_id, plan_plan_name]
+  - id: workorder-priority-vs-category
+    kind: definition
+    content: "Work orders have priority (High/Medium/Low = urgency) and category (HVAC/Plumbing/Electrical/... = trade); they are separate fields."
+    terms: [urgent, high priority, HVAC, plumbing, electrical, maintenance category]
+    objects: [fm_work_orders_priority, fm_work_orders_category]
