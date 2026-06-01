@@ -1,0 +1,9 @@
+- id: crazy-patients
+  kind: definition
+  content: '''Crazy patients'' refers to high-risk patients classified as high risk based on their health risk score in the patient_health_scores explore.'
+  terms:
+    - crazy patients
+    - crazy
+  objects:
+    - patient_health_scores.high_risk_patient_count
+  global: false
