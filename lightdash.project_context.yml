@@ -1,0 +1,9 @@
+- id: gc
+  kind: definition
+  content: '''GC'' is a business abbreviation for one of the fulfillment centers (central, east_coast, or west_coast); confirm which one and document the mapping.'
+  terms:
+    - GC
+    - fulfillment center
+  objects:
+    - orders_fulfillment_center
+  global: false
