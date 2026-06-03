@@ -215,3 +215,12 @@ entries:
     terms: [timezone, UTC, date]
     objects: []
     global: true
+  - id: mrr
+    kind: definition
+    content: For Jaffle Shop, MRR (Monthly Recurring Revenue) means the sum of completed order revenue grouped by month, not subscription-based recurring revenue.
+    terms:
+      - MRR
+      - Monthly Recurring Revenue
+      - completed revenue per month
+    objects:
+      - orders_total_completed_order_amount
