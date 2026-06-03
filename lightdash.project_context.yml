@@ -215,3 +215,12 @@ entries:
     terms: [timezone, UTC, date]
     objects: []
     global: true
+  - id: active-customer
+    kind: definition
+    content: An 'active customer' is defined as a customer who placed at least one order in the last 90 days.
+    terms:
+      - active customer
+      - active customers
+    objects:
+      - orders
+      - customers_unique_customer_count
