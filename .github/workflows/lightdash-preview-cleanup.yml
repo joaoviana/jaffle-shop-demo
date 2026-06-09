@@ -1,0 +1,63 @@
+name: Lightdash preview cleanup
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      preview_name:
+        description: Preview name to stop
+        required: true
+        type: string
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate required secrets
+        env:
+          LIGHTDASH_API_KEY: ${{ secrets.LIGHTDASH_API_KEY }}
+          LIGHTDASH_PROJECT: ${{ secrets.LIGHTDASH_PROJECT }}
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+        run: |
+          missing=0
+          for name in LIGHTDASH_API_KEY LIGHTDASH_PROJECT LIGHTDASH_URL; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name secret is required for Lightdash preview cleanup"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
+      - name: Get Lightdash version
+        id: lightdash-version
+        env:
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+        run: |
+          version="$(curl -fsSL "$LIGHTDASH_URL/api/v1/health" | jq -r '.results.version // empty' || true)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Install Lightdash CLI
+        run: |
+          lightdash_version="${{ steps.lightdash-version.outputs.version }}"
+          if [ -n "$lightdash_version" ]; then
+            npm install -g "@lightdash/cli@$lightdash_version" || npm install -g @lightdash/cli@latest
+          else
+            npm install -g @lightdash/cli@latest
+          fi
+
+      - name: Stop Lightdash preview
+        env:
+          LIGHTDASH_API_KEY: ${{ secrets.LIGHTDASH_API_KEY }}
+          LIGHTDASH_PROJECT: ${{ secrets.LIGHTDASH_PROJECT }}
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+          PREVIEW_NAME: ${{ github.head_ref || inputs.preview_name }}
+        run: |
+          preview_name="${PREVIEW_NAME//\//-}"
+          lightdash stop-preview --name "$preview_name"

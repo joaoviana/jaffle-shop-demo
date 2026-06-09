@@ -1,0 +1,103 @@
+name: Lightdash preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  DBT_VERSION: '1.7.10'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+    permissions:
+      contents: read
+      pull-requests: write
+    concurrency:
+      group: lightdash-preview-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Validate required secrets
+        env:
+          LIGHTDASH_API_KEY: ${{ secrets.LIGHTDASH_API_KEY }}
+          LIGHTDASH_PROJECT: ${{ secrets.LIGHTDASH_PROJECT }}
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+          DBT_PROFILES: ${{ secrets.DBT_PROFILES }}
+        run: |
+          missing=0
+          for name in LIGHTDASH_API_KEY LIGHTDASH_PROJECT LIGHTDASH_URL DBT_PROFILES; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name secret is required for Lightdash preview projects"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
+      - name: Locate dbt project
+        run: |
+          project_dir="$(dirname "$(find . -name dbt_project.yml -print -quit)")"
+          echo "PROJECT_DIR=$project_dir" >> "$GITHUB_ENV"
+
+      - name: Write dbt profiles.yml
+        env:
+          DBT_PROFILES: ${{ secrets.DBT_PROFILES }}
+        run: printf '%s' "$DBT_PROFILES" > profiles.yml
+
+      - name: Install dbt
+        run: |
+          pip install "dbt-core==$DBT_VERSION" "dbt-postgres==$DBT_VERSION"
+          if [ -f "$PROJECT_DIR/packages.yml" ] || [ -f "$PROJECT_DIR/dependencies.yml" ]; then
+            dbt deps --project-dir "$PROJECT_DIR"
+          fi
+
+      - name: Get Lightdash version
+        id: lightdash-version
+        env:
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+        run: |
+          version="$(curl -fsSL "$LIGHTDASH_URL/api/v1/health" | jq -r '.results.version // empty' || true)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Install Lightdash CLI
+        run: |
+          lightdash_version="${{ steps.lightdash-version.outputs.version }}"
+          if [ -n "$lightdash_version" ]; then
+            npm install -g "@lightdash/cli@$lightdash_version" || npm install -g @lightdash/cli@latest
+          else
+            npm install -g @lightdash/cli@latest
+          fi
+
+      - name: Start Lightdash preview
+        id: start-preview
+        env:
+          LIGHTDASH_API_KEY: ${{ secrets.LIGHTDASH_API_KEY }}
+          LIGHTDASH_PROJECT: ${{ secrets.LIGHTDASH_PROJECT }}
+          LIGHTDASH_URL: ${{ secrets.LIGHTDASH_URL }}
+          PREVIEW_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          preview_name="${PREVIEW_NAME//\//-}"
+          lightdash start-preview --project-dir "$PROJECT_DIR" --profiles-dir . --name "$preview_name"
+
+      - name: Comment with preview URL
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: lightdash-preview
+          number: ${{ github.event.pull_request.number }}
+          message: |
+            :rocket: Deployed ${{ github.event.pull_request.head.sha || github.sha }} to ${{ steps.start-preview.outputs.url }}
