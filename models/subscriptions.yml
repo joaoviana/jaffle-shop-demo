@@ -69,6 +69,7 @@ models:
           meta:
             dimension:
               type: string
+              ai_hint: "Plan name in this explore. Note: to combine plan with repeat customer rate (number_of_orders > 1) and customer acquisition month (created_month), use the customers explore instead — it exposes plan_name, number_of_orders, and created_month together without parameter requirements."
               colors:
                 "free": "#E0E0E0"
                 "silver": "#C0C0C0"
