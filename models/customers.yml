@@ -169,6 +169,12 @@ models:
               type: number
               required_attributes:
                 is_admin: "true"
+            additional_dimensions:
+              age_band:
+                label: Age Band
+                description: "Customer age grouped into bands: 18-25, 26-35, 36-50, 50+"
+                type: string
+                sql: "CASE WHEN ${age} BETWEEN 18 AND 25 THEN '18-25' WHEN ${age} BETWEEN 26 AND 35 THEN '26-35' WHEN ${age} BETWEEN 36 AND 50 THEN '36-50' WHEN ${age} > 50 THEN '50+' ELSE 'Unknown' END"
             metrics:
               average_age:
                 type: average
