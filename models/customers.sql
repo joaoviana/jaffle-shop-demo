@@ -39,6 +39,23 @@ customer_orders_latest AS (
   FROM customer_orders
 ),
 
+customer_order_dates as (
+
+    select
+        customer_id,
+        min(case when order_rank = 1 then order_date end) as first_order_date,
+        min(case when order_rank = 2 then order_date end) as second_order_date
+    from (
+        select
+            customer_id,
+            order_date,
+            row_number() over (partition by customer_id order by order_date) as order_rank
+        from orders
+    ) ranked_orders
+    group by customer_id
+
+),
+
 customer_payments as (
 
     select
@@ -71,7 +88,13 @@ final as (
         customer_orders.number_of_orders,
         customer_payments.total_amount as customer_lifetime_value,
         {{ date_diff_days('customer_orders.first_order', 'customers.created') }} AS days_between_created_and_first_order,
-        {{ timestamp_diff_days('customer_orders.most_recent_order', 'customer_orders_latest.latest_order') }} AS days_since_last_order
+        {{ timestamp_diff_days('customer_orders.most_recent_order', 'customer_orders_latest.latest_order') }} AS days_since_last_order,
+        case
+            when customer_order_dates.second_order_date is not null
+                and {{ date_diff_days('customer_order_dates.second_order_date', 'customer_order_dates.first_order_date') }} <= 30
+            then true
+            else false
+        end as second_order_within_30_days
 
     from customers
 
@@ -80,6 +103,8 @@ final as (
     left join customer_payments using (customer_id)
 
     LEFT JOIN customer_orders_latest USING(customer_id)
+
+    LEFT JOIN customer_order_dates USING(customer_id)
 
 )
 
