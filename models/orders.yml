@@ -81,6 +81,23 @@ models:
             sql_on: ${orders.status} = ${raw_order_statuses.status}
             relationship: many-to-one
         metrics:
+          average_order_value:
+            label: Average Order Value (AOV)
+            description: >
+              Average order value: total completed revenue divided by completed order count.
+              Excludes returns (return_pending, returned statuses).
+              AOV = total_completed_order_amount / completed_order_count.
+            type: number
+            sql: ${total_completed_order_amount} / NULLIF(${completed_order_count}, 0)
+            format: usd
+            round: 2
+            ai_hint: |
+              AOV is total completed revenue divided by completed order count.
+              Use this metric — not average_order_size or average_order_amount — whenever the user asks for AOV or average order value.
+              Both numerator and denominator exclude returns (return_pending, returned).
+            drivers:
+              - total_completed_order_amount
+              - completed_order_count
           completion_percentage:
             spotlight:
               owner: demo@lightdash.com
@@ -147,7 +164,7 @@ models:
                   categories: [ "revenue_growth" ]
               completed_order_count:
                 label: Completed order count
-                description: Total number of completed orders
+                description: Total number of completed orders (distinct count). Excludes returns (return_pending, returned statuses).
                 type: count_distinct
                 filters:
                   - is_completed: "true"
@@ -393,6 +410,8 @@ models:
                 format: usd
                 round: 2
               total_completed_order_amount:
+                label: Total completed order amount
+                description: Sum of order amount for completed orders only — excludes returns and other non-completed statuses.
                 type: sum
                 format: usd
                 round: 2
