@@ -58,15 +58,16 @@ models:
               total_order_amount_inflated:
                 type: sum
                 sql: ${orders.amount}
-                description: "Regular SUM of order amount — inflated by join fan-out when orders have multiple payments. Compare with total_order_amount_deduped to see the difference."
+                description: "⚠️ Do not use for business reporting. This is a regular SUM of order amount on the payments table. Because an order can have multiple payment rows, this metric is inflated by join fan-out — an order with 2 payments is counted twice. Use total_revenue (sum of payments) or total_order_amount_deduped (on the customers explore) instead."
                 format: usd
                 round: 2
+                hidden: true
               total_revenue:
                 spotlight:
                   owner: demo2@lightdash.com
                   categories: ['revenue_growth']
                 type: sum
-                description: Sum of all payments
+                description: "Total revenue received: the sum of all payment amounts. This is the canonical revenue metric for board-level and executive reporting. It reflects actual cash collected across all payment methods and completed orders."
                 # E2E tests rely on these values
                 show_underlying_values:
                   # Metrics
