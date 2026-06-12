@@ -77,6 +77,7 @@ models:
           meta:
             dimension:
               type: string
+              ai_hint: "Channel values map to ad platforms as follows: 'online' corresponds to Google Ads / paid search; 'social' corresponds to Meta (Facebook/Instagram) and other social ad platforms; 'email' corresponds to email marketing tools; 'push' corresponds to push notification campaigns; 'multi_channel' corresponds to campaigns running across multiple platforms simultaneously."
             metrics:
               email_campaigns:
                 type: count_distinct
