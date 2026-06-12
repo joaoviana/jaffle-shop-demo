@@ -112,7 +112,7 @@ models:
               time_intervals: ["DAY", "WEEK", "MONTH", "YEAR"]
 
       - name: is_active
-        description: Whether the subscription is active (not cancelled)
+        description: "**DEPRECATED** — Do not use. This boolean field is no longer reliable. Use `subscription_status = 'Current'` to identify active subscriptions instead. Whether the subscription is active (not cancelled)."
         config:
           meta:
             dimension:
