@@ -478,6 +478,12 @@ models:
           meta:
             dimension:
               hidden: true
+            metrics:
+              total_credit_card_amount:
+                label: Total Credit Card Amount
+                description: Total order amount paid by credit card. Sums the credit_card_amount column across all orders.
+                type: sum
+                sql: credit_card_amount
         meta:
           dimension:
             type: number
@@ -494,6 +500,11 @@ models:
                 label: Coupon Total
                 description: Total coupon spend
                 type: sum
+              total_coupon_amount:
+                label: Total Coupon Amount
+                description: Total order amount paid with coupon (promotional credit). Sums the coupon_amount column across all orders.
+                type: sum
+                sql: coupon_amount
         meta:
           dimension:
             type: number
@@ -510,6 +521,11 @@ models:
                 label: Bank Transfer Total
                 description: Total revenue paid via bank transfer
                 type: sum
+              total_bank_transfer_amount:
+                label: Total Bank Transfer Amount
+                description: Total order amount paid via bank transfer. Sums the bank_transfer_amount column across all orders.
+                type: sum
+                sql: bank_transfer_amount
         meta:
           dimension:
             type: number
@@ -526,6 +542,11 @@ models:
                 label: Gift Card Total
                 description: Gift card total
                 type: sum
+              total_gift_card_amount:
+                label: Total Gift Card Amount
+                description: Total order amount paid with gift cards. Sums the gift_card_amount column across all orders.
+                type: sum
+                sql: gift_card_amount
         meta:
           dimension:
             type: number
