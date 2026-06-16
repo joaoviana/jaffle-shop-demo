@@ -295,6 +295,17 @@ models:
                 # Hex colors are supported in both chart config and echarts
                 "placed": "#e6fa0f"
                 "completed": "#00FF00"
+            metrics:
+              return_rate:
+                label: Return Rate
+                description: >
+                  Percentage of orders that have been returned or have a return pending.
+                  Calculated as (count of orders with status 'returned' or 'return_pending') / (count of all orders).
+                  Use this to monitor order return health across fulfillment centers, channels, and time periods.
+                type: number
+                sql: "COUNT(CASE WHEN ${status} IN ('returned', 'return_pending') THEN ${order_id} END)::float / NULLIF(COUNT(${order_id}), 0)"
+                format: percent
+                ai_hint: "Use this metric to monitor order return health. A rising return rate may indicate product quality issues, fulfillment errors, or customer dissatisfaction. Segment by fulfillment_center, order_source, or order_priority to diagnose root causes. Return rate = (returned + return_pending orders) / total orders."
         tests:
           - accepted_values:
               values:
