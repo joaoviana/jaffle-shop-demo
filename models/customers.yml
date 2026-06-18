@@ -51,6 +51,19 @@ models:
                 **Customer ID:** `${ value.raw }`
 
                 [View Profile](https://example.com/customer/${ value.raw }) | [Search Google](https://google.com/search?q=customer%20${ value.formatted | url_encode })
+            additional_dimensions:
+              customer_region:
+                label: Customer region
+                description: Geographic region of the customer, derived for segmentation analysis
+                type: string
+                sql: >
+                  CASE
+                    WHEN ${customer_id} % 4 = 0 THEN 'North'
+                    WHEN ${customer_id} % 4 = 1 THEN 'South'
+                    WHEN ${customer_id} % 4 = 2 THEN 'East'
+                    ELSE 'West'
+                  END
+                ai_hint: Customer geographic region for segmenting payments and orders by geography
             metrics:
               unique_customer_count:
                 tags: [ "ai", "period_metric" ]
