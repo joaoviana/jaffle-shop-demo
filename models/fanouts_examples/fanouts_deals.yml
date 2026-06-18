@@ -1,6 +1,18 @@
 version: 2
 models:
   - name: fanouts_deals
+    description: |
+      CRM pipeline deals, analogous to Salesforce Opportunities. Each row is one
+      deal with its stage (e.g. Prospecting, Qualified, Won, Lost), monetary value
+      (amount), and the account it belongs to. Use this model to answer questions
+      about pipeline value, deal count, win rate, or deal stage — such as
+      "total pipeline value this quarter" or "average deal size by stage".
+
+      Note: this model does not contain a region or territory dimension. Deal-level
+      region breakdowns are not available in the current data; that would require
+      adding a region field to the upstream CRM source (deals_raw or accounts_raw).
+      The regional_sales model covers geographic revenue but represents retail
+      product sales, not CRM pipeline.
     meta:
       required_attributes:
         is_admin_saas_demo: "true"

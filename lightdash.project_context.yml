@@ -202,6 +202,29 @@ entries:
     terms: [urgent maintenance, high priority work]
     objects: [fm_work_orders_priority]
 
+  # ---- CRM / pipeline ----
+  - id: pipeline-explore
+    kind: definition
+    content: >
+      CRM pipeline data (Salesforce Opportunities / deals) lives in the
+      fanouts_deals explore. Use it for pipeline value, deal count, deal stage,
+      win rate, average deal size, or any deal-level metric.
+      fanouts_accounts is the parent explore and joins to fanouts_deals.
+      There is NO region dimension on deals; deal-level region breakdowns require
+      upstream enrichment of the CRM source data.
+    terms: [pipeline, Salesforce, deal, opportunity, CRM, pipeline value, deal stage, win rate]
+    objects: [fanouts_deals, fanouts_accounts]
+
+  - id: regional-sales-not-crm
+    kind: definition
+    content: >
+      regional_sales covers retail product sales (Electronics, Clothing) broken
+      down by geographic region (North America, Europe, Asia Pacific). It is NOT
+      CRM or Salesforce pipeline data. Do not use it to answer questions about
+      deal value, opportunity stage, or B2B pipeline.
+    terms: [regional sales, region revenue, sales by region]
+    objects: [regional_sales_region]
+
   # ---- Global / cross-cutting ----
   - id: fiscal-year
     kind: context
