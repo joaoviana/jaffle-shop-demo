@@ -27,12 +27,14 @@ models:
           - join: orders
             sql_on: ${customers.customer_id} = ${orders.customer_id}
             relationship: one-to-many
+            description: "LEFT JOIN to the Orders table. All customers are included in results, but order-related metrics will be null for customers who have never placed an order. If you apply a filter on an Orders field, only customers with at least one matching order will be returned."
           - join: payments
             sql_on: ${orders.order_id} = ${payments.order_id}
             relationship: one-to-many
         ai_hint:
           - This is a customers table.
           - Contains customer information and demographics.
+          - "The Customers explore joins to the Orders table. This means metrics like 'customer count' may only reflect customers who have placed at least one order. To count ALL customers regardless of order history, use the 'Total Customers' metric (which counts all rows in the customers table). To count only customers with orders, use the 'Customers with orders' metric or filter where first_order is not null."
     description: |
       # Customers
 
@@ -56,10 +58,19 @@ models:
                 tags: [ "ai", "period_metric" ]
                 type: count_distinct
                 label: Unique customer count
-                description: Total number of customers
+                description: "Count of distinct customers who appear in the result set. Because the Customers explore uses a LEFT JOIN to Orders, this metric counts all customers when no order filters are applied. However, if you filter on any Orders dimension, it will only count customers who have at least one matching order. For an unconditional count of all customers, use the 'Total Customers' metric instead."
                 spotlight:
                   categories: [ "core", "revenue_growth" ]
                 ai_hint: Unique customer count.
+              total_customers:
+                tags: [ "ai" ]
+                type: count_distinct
+                sql: ${customer_id}
+                label: Total Customers
+                description: "Total number of unique customers, including those who have never placed an order. This metric counts all rows in the customers table regardless of order history. Use this when you need the full customer base count."
+                spotlight:
+                  categories: [ "core" ]
+                ai_hint: "Use this metric when the user asks for total customer count, how many customers exist, or the full customer base. This counts ALL customers, not just those with orders."
               total_order_amount_deduped:
                 type: sum_distinct
                 sql: ${orders.amount}
@@ -200,7 +211,7 @@ models:
             tags: [ "ai" ]
             type: timestamp
       - name: first_order
-        description: Date of the customers first order
+        description: "Date of the customer's first order. This field is NULL for customers who have never placed an order. You can use 'first_order is null' to identify customers with no orders, or 'first_order is not null' to identify customers who have placed at least one order."
         config:
           meta:
             dimension:
