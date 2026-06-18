@@ -215,3 +215,15 @@ entries:
     terms: [timezone, UTC, date]
     objects: []
     global: true
+  - id: orders
+    kind: definition
+    content: "In this project, 'orders' refers to two distinct entities: jaffle.orders (e-commerce customer orders) and fm_work_orders (field service work orders assigned to technicians). When a user asks about orders with technicians, they are asking about fm_work_orders, not jaffle.orders."
+    terms:
+      - orders
+      - work orders
+      - technician orders
+      - field service orders
+    objects:
+      - orders
+      - fm_work_orders
+      - fm_technicians
