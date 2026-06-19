@@ -27,12 +27,14 @@ models:
           - join: orders
             sql_on: ${customers.customer_id} = ${orders.customer_id}
             relationship: one-to-many
+            description: This join connects customers to their orders. Depending on the join type (INNER vs LEFT), this may restrict results to only customers who have at least one order.
           - join: payments
             sql_on: ${orders.order_id} = ${payments.order_id}
             relationship: one-to-many
         ai_hint:
           - This is a customers table.
           - Contains customer information and demographics.
+          - The Customers explore joins to the Orders table. This join may filter results to only customers who have placed at least one order. To count ALL customers regardless of order history, use the 'Total Customers (All)' metric or filter where first_order is null or not null. To count only customers with orders, use the standard 'Customer count' metric.
     description: |
       # Customers
 
@@ -56,10 +58,20 @@ models:
                 tags: [ "ai", "period_metric" ]
                 type: count_distinct
                 label: Unique customer count
-                description: Total number of customers
+                description: Count of customers in the Customers explore. Because the Customers explore joins to the Orders table, this metric may be scoped to customers who have placed at least one order depending on the join type. To count all customers including those with no order history, use 'Total Customers (All)'.
                 spotlight:
                   categories: [ "core", "revenue_growth" ]
                 ai_hint: Unique customer count.
+              total_customers_all:
+                type: count_distinct
+                sql: ${customer_id}
+                label: Total Customers (All)
+                description: >-
+                  Count of all customers regardless of whether they have placed an order.
+                  Use this metric when you need the total customer base including customers
+                  with no order history. Note - if the Customers explore joins to Orders
+                  with an INNER join, this metric will still be scoped to customers with
+                  orders; in that case, query the raw customers table directly.
               total_order_amount_deduped:
                 type: sum_distinct
                 sql: ${orders.amount}
@@ -200,7 +212,7 @@ models:
             tags: [ "ai" ]
             type: timestamp
       - name: first_order
-        description: Date of the customers first order
+        description: "📅 Date of the customer's first order. This field is NULL for customers who have never placed an order. Can be used to distinguish all customers (including those with no orders) from customers with order history."
         config:
           meta:
             dimension:
