@@ -212,7 +212,7 @@ models:
             tags: [ "ai" ]
             type: timestamp
       - name: first_order
-        description: Date of the customer's first order. This field is NULL for customers who have never placed an order. Can be used to distinguish all customers (including those with no orders) from customers with order history.
+        description: "📅 Date of the customer's first order. This field is NULL for customers who have never placed an order. Can be used to distinguish all customers (including those with no orders) from customers with order history."
         config:
           meta:
             dimension:
