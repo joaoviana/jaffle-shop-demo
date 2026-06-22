@@ -215,3 +215,15 @@ entries:
     terms: [timezone, UTC, date]
     objects: []
     global: true
+  - id: active-customer
+    kind: context
+    content: "'Active customer' in this project refers to customers with active subscriptions. Use the subscriptions explore and the is_active dimension to identify active vs. cancelled subscriptions. Related metrics include current_subscriptions, active_subscription_rate, and active_conditional_mrr."
+    terms:
+      - active customer
+      - active subscription
+      - is active
+    objects:
+      - subscriptions
+      - subscriptions_is_active
+      - subscriptions_current_subscriptions
+      - subscriptions_active_subscription_rate
