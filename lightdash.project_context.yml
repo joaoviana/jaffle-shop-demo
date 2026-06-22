@@ -215,3 +215,14 @@ entries:
     terms: [timezone, UTC, date]
     objects: []
     global: true
+  - id: orders-and-technicians
+    kind: context
+    content: When users ask about the relationship between orders and technicians, clarify whether they mean product orders (orders table) or work orders (fm_work_orders table). Product orders do not have a direct technician relationship; work orders are assigned to technicians. Route accordingly.
+    terms:
+      - orders and technicians
+      - orders relate to technicians
+      - technician orders
+    objects:
+      - orders
+      - fm_technicians
+      - fm_work_orders
