@@ -1,6 +1,15 @@
 version: 2
 models:
   - name: fanouts_deals
+    description: >
+      Pipeline deals data. Note: a region/territory dimension is not yet exposed on this model.
+      The upstream warehouse tables (fanouts_deals and fanouts_accounts) do not currently include
+      a region or territory column, and no territory lookup table keyed on account_id exists in
+      the warehouse. To expose region on deals, the data engineering team must first enrich
+      fanouts_accounts or fanouts_deals with a region column (e.g. from Salesforce account
+      territory or billing region), or create a territory/region lookup table keyed on account_id.
+      Once that upstream data is available, a region dimension and/or join can be added here with
+      a trivial YAML change.
     meta:
       required_attributes:
         is_admin_saas_demo: "true"
@@ -84,3 +93,14 @@ models:
         meta:
           dimension:
             type: number
+
+# TODO: Uncomment and complete this dimension once upstream dbt modeling adds a region column
+# to fanouts_deals or fanouts_accounts (e.g. from Salesforce account territory/billing region),
+# or once a territory/region lookup table keyed on account_id is available in the warehouse.
+# See review finding: "Region dimension missing from fanouts_deals — requires upstream dbt enrichment"
+#
+#      - name: region
+#        description: "The sales region associated with the deal, sourced from account territory or billing region. NOT YET AVAILABLE — requires upstream enrichment of fanouts_accounts or fanouts_deals with a region column, or a territory lookup table keyed on account_id."
+#        meta:
+#          dimension:
+#            type: string
