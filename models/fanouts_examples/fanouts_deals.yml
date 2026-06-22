@@ -1,10 +1,14 @@
 version: 2
 models:
   - name: fanouts_deals
+    description: "CRM deals with pipeline value metrics. Note: region/territory breakdown is not yet available — the upstream deals_raw source does not include a region column, and there is no join key linking deals to regional_sales. To enable pipeline-by-region analysis, add a region or territory field to the deals_raw source and surface it here."
     meta:
       required_attributes:
         is_admin_saas_demo: "true"
       primary_key: deal_id
+      ai_hint:
+        - Use this explore to analyse deal pipeline value, deal counts, and deal stages.
+        - Region or territory breakdown is not currently available in this explore. The upstream deals_raw source does not contain a region column, and there is no shared key with regional_sales. Do not attempt to join regional_sales here — the models are unrelated. To support pipeline-by-region queries, a region field must be added to the upstream deals_raw data source.
     columns:
       - name: deal_id
         description: "Unique identifier for this deal"
