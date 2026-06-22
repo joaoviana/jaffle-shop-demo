@@ -77,6 +77,7 @@ models:
           meta:
             dimension:
               type: string
+              ai_hint: "Maps business advertising platform names to channel values: 'Google Ads' maps to 'online'; 'Meta', 'Facebook', or 'Instagram' maps to 'social'. Other channel values are: 'email', 'push', 'multi_channel'."
             metrics:
               email_campaigns:
                 type: count_distinct
