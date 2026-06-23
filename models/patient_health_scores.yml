@@ -201,11 +201,19 @@ models:
               type: string
 
       - name: primary_care_provider
-        description: Assigned primary care physician
+        description: >
+          The patient's assigned primary care physician (PCP) — the standing care relationship recorded
+          on the patient record. Distinct from `provider` on `visit_analytics`, which is the clinician
+          who actually conducted a specific visit.
         config:
           meta:
             dimension:
               type: string
+              ai_hint: >
+                This is the patient's assigned primary care physician (PCP), distinct from `provider`
+                on `visit_analytics` which is the clinician who conducted a specific visit. Use
+                `primary_care_provider` when asking about a patient's assigned physician; use
+                `visit_analytics.provider` when asking about who performed a particular visit.
 
       - name: total_visits
         description: Total number of healthcare visits
