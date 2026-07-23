@@ -1,217 +1,338 @@
-version: 1
+# What your AI agents read before they answer.
+# Add things here to teach them your terms and how your data fits together.
+# Merge a change to this file and your future answers get better.
+# Managed from the Reviews tab under Ask AI.
+version: 2
 entries:
-  # ---- Payments / revenue ----
-  - id: gc
-    kind: definition
-    content: "'GC' = gift-card payments (payment_method = 'gift_card'), not a fulfillment center."
-    terms: [GC, gift card]
-    objects: [payments_payment_method]
-  - id: payment-method
-    kind: definition
-    content: "Payment methods: credit_card, coupon, bank_transfer, gift_card. 'Card type' usually means payment_method."
-    terms: [card type, payment method, credit card, bank transfer]
-    objects: [payments_payment_method]
-  - id: bt-bank-transfer
-    kind: definition
-    content: "'BT' = bank_transfer payments (payment_method = 'bank_transfer')."
-    terms: [BT, bank transfer]
-    objects: [payments_payment_method]
-  - id: coupon-payments
-    kind: definition
-    content: "A coupon payment (payment_method = 'coupon') is promotional credit, not cash revenue."
-    terms: [coupon, promo, promotional credit]
-    objects: [payments_payment_method]
-  - id: revenue-definition
-    kind: context
-    content: "'Revenue' means the sum of payment amount (payments.amount), not order amount."
-    terms: [revenue, total revenue, sales]
-    objects: [payments_amount]
-  - id: revenue-by-customer
-    kind: context
-    content: "For revenue per customer, attribute payments via customer_order_payments (or sum_distinct on payment_id) to avoid order->payment fan-out double-counting."
-    terms: [revenue by customer, total revenue, revenue per customer]
-    objects: [customer_order_payments, payments_payment_id]
-  - id: aov
-    kind: definition
-    content: "'AOV' = average order value = total revenue divided by number of orders."
-    terms: [AOV, average order value]
-    objects: [orders_amount]
-
-  # ---- Orders ----
-  - id: order-status
-    kind: definition
-    content: "Order status values: placed, shipped, completed, return_pending, returned."
-    terms: [placed, shipped, completed, returned, return pending, order status]
-    objects: [orders_status]
-  - id: completed-orders
-    kind: definition
-    content: "A 'completed' order has status = 'completed' (delivered and not returned)."
-    terms: [completed, fulfilled, delivered]
-    objects: [orders_status]
-  - id: returns
-    kind: context
-    content: "'Returns' means orders with status in ('returned','return_pending')."
-    terms: [returns, returned, refund]
-    objects: [orders_status]
-  - id: fulfillment-center-geography
-    kind: definition
-    content: "Fulfillment centers are geographic regions: east_coast, west_coast, central."
-    terms: [west coast, east coast, central, warehouse, fulfillment center, FC]
-    objects: [orders_fulfillment_center]
-  - id: order-source
-    kind: definition
-    content: "order_source is the channel the order came through: website, mobile_app, phone."
-    terms: [channel, order source, how ordered, online, phone order]
-    objects: [orders_order_source]
-  - id: mobile-orders
-    kind: definition
-    content: "'App orders' / 'mobile orders' = order_source = 'mobile_app'."
-    terms: [app orders, mobile orders, in-app]
-    objects: [orders_order_source]
-  - id: order-priority
-    kind: definition
-    content: "order_priority is the fulfilment urgency: normal, high, urgent (distinct from order_source)."
-    terms: [order priority, urgency, rush orders]
-    objects: [orders_order_priority]
-
-  # ---- Customers ----
-  - id: clv
-    kind: definition
-    content: "'CLV' / 'LTV' = customer_lifetime_value on the customers model."
-    terms: [CLV, LTV, lifetime value]
-    objects: [customers_customer_lifetime_value]
-  - id: new-customer
-    kind: context
-    content: "A 'new' customer is one whose first_order is within the last 30 days."
-    terms: [new customer, recently acquired, new signups]
-    objects: [customers_first_order]
-  - id: repeat-customer
-    kind: definition
-    content: "A 'repeat' customer has number_of_orders > 1; a one-time customer has exactly 1."
-    terms: [repeat customer, returning customer, one-time]
-    objects: [customers_number_of_orders]
-  - id: top-customers
-    kind: context
-    content: "'Top customers' means rank by customer_lifetime_value descending unless the user says otherwise."
-    terms: [top customers, best customers, biggest spenders]
-    objects: [customers_customer_lifetime_value]
-
-  # ---- Subscriptions / plans ----
-  - id: active-subscription
-    kind: context
-    content: "An active subscription has subscription_status = 'Current'; the is_active boolean is deprecated."
-    terms: [active, active subscriptions, current subscriptions]
-    objects: [subscriptions_subscription_status, subscriptions_is_active]
-  - id: churned-subscription
-    kind: context
-    content: "'Churned' subscriptions have subscription_status = 'Cancelled'."
-    terms: [churn, churned, cancelled, cancellations]
-    objects: [subscriptions_subscription_status]
-  - id: expired-subscription
-    kind: definition
-    content: "'Expired' = subscription_status = 'Expired' (lapsed, not actively cancelled)."
-    terms: [expired, lapsed]
-    objects: [subscriptions_subscription_status]
-  - id: plan-tiers
-    kind: context
-    content: "Subscription plan names (free, silver, gold, platinum, diamond) live in the plan table; join subscriptions.plan_id = plan.id."
-    terms: [platinum, gold, silver, diamond, plan, membership tier]
-    objects: [subscriptions_plan_id, plan_plan_name]
-  - id: paid-plans
-    kind: context
-    content: "'Paid' plans are any plan_name other than 'free' (silver, gold, platinum, diamond)."
-    terms: [paid plans, paying customers, premium]
-    objects: [plan_plan_name]
-  - id: top-tier
-    kind: definition
-    content: "The top subscription tier is 'diamond', then platinum, gold, silver, free."
-    terms: [top tier, highest tier, diamond]
-    objects: [plan_plan_name]
-
-  # ---- Patients / health ----
-  - id: high-risk-patients
-    kind: definition
-    content: "Patient risk tiers by health_risk_score: Low (<40), Medium (40-69), High (>=70). 'High-risk' = score >= 70."
-    terms: [high risk, high-risk, low risk, medium risk, risk tier]
-    objects: [patient_health_scores_health_risk_score]
-  - id: risk-category
-    kind: definition
-    content: "risk_category is the initial Low/Medium/High categorisation of a patient."
-    terms: [risk category, risk band]
-    objects: [patient_health_scores_risk_category]
-  - id: engagement-tiers
-    kind: definition
-    content: "Engagement tiers by engagement_score: Low (<40), Moderate (40-69), Highly Engaged (>=70)."
-    terms: [engagement, engaged patients, highly engaged]
-    objects: [patient_health_scores_engagement_score]
-  - id: overdue-patients
-    kind: context
-    content: "Patients 'overdue' for a visit have days_since_last_visit > 180."
-    terms: [overdue, overdue for visit, due for a visit]
-    objects: [patient_health_scores_days_since_last_visit]
-  - id: visit-recency
-    kind: context
-    content: "Visit recency tiers from days_since_last_visit: Recent (<=30), Moderate (31-90), Overdue (91-180), Very Overdue (>180)."
-    terms: [recent visit, recency, lapsed patients]
-    objects: [patient_health_scores_days_since_last_visit]
-  - id: frequent-visitor
-    kind: definition
-    content: "A 'frequent' patient has total_visits > 10."
-    terms: [frequent, frequent visitor, regulars]
-    objects: [patient_health_scores_total_visits]
-
-  # ---- Facilities / work orders ----
-  - id: workorder-priority-vs-category
-    kind: definition
-    content: "Work orders have priority (High/Medium/Low = urgency) and category (HVAC/Plumbing/Electrical/... = trade); they are separate fields."
-    terms: [urgent, high priority, HVAC, plumbing, electrical, maintenance category]
-    objects: [fm_work_orders_priority, fm_work_orders_category]
-  - id: wo
-    kind: definition
-    content: "'WO' = work order (the fm_work_orders model)."
-    terms: [WO, work order, ticket, maintenance request]
-    objects: [fm_work_orders]
-  - id: hvac
-    kind: definition
-    content: "'HVAC' is a work-order category (heating, ventilation, air-conditioning); filter category = 'HVAC'."
-    terms: [HVAC, air conditioning, heating]
-    objects: [fm_work_orders_category]
-  - id: sla
-    kind: definition
-    content: "'SLA' = service-level agreement; sla_met is the boolean of whether the work order met its SLA."
-    terms: [SLA, service level, sla compliance]
-    objects: [fm_work_orders_sla_met]
-  - id: ftf
-    kind: definition
-    content: "'FTF' = first-time fix; first_time_fix is true when the issue was resolved on the first visit."
-    terms: [FTF, first time fix, first-visit resolution]
-    objects: [fm_work_orders_first_time_fix]
-  - id: emergency-callouts
-    kind: context
-    content: "'Emergency' call-outs are work orders flagged emergency_call = true."
-    terms: [emergency, call-out, urgent dispatch]
-    objects: [fm_work_orders_emergency_call]
-  - id: response-vs-resolution
-    kind: definition
-    content: "response_time_minutes (time to first response) and resolution_time_hours (time to close) are different SLAs — don't conflate them."
-    terms: [response time, resolution time, time to fix]
-    objects: [fm_work_orders_response_time_minutes, fm_work_orders_resolution_time_hours]
-  - id: urgent-maintenance
-    kind: context
-    content: "'Urgent' maintenance means work orders with priority = 'High'."
-    terms: [urgent maintenance, high priority work]
-    objects: [fm_work_orders_priority]
-
-  # ---- Global / cross-cutting ----
-  - id: fiscal-year
-    kind: context
-    content: "The fiscal year starts in February."
-    terms: [fiscal year, FY]
+  - kind: definition
+    content: '''GC'' = gift-card payments (payment_method = ''gift_card''), not a fulfillment center.'
+    terms:
+      - GC
+      - gift card
     objects: []
-    global: true
-  - id: timezone
-    kind: context
-    content: "All reporting dates are in UTC unless the user asks for a specific timezone."
-    terms: [timezone, UTC, date]
+    id: gc
+  - kind: definition
+    content: 'Payment methods: credit_card, coupon, bank_transfer, gift_card. ''Card type'' usually means payment_method.'
+    terms:
+      - card type
+      - payment method
+      - credit card
+      - bank transfer
     objects: []
-    global: true
+    id: payment-method
+  - kind: definition
+    content: '''BT'' = bank_transfer payments (payment_method = ''bank_transfer'').'
+    terms:
+      - BT
+      - bank transfer
+    objects: []
+    id: bt-bank-transfer
+  - kind: definition
+    content: A coupon payment (payment_method = 'coupon') is promotional credit, not cash revenue.
+    terms:
+      - coupon
+      - promo
+      - promotional credit
+    objects: []
+    id: coupon-payments
+  - kind: context
+    content: '''Revenue'' means the sum of payment amount (payments.amount), not order amount.'
+    terms:
+      - revenue
+      - total revenue
+      - sales
+    objects: []
+    id: revenue-definition
+  - kind: context
+    content: For revenue per customer, attribute payments via customer_order_payments (or sum_distinct on payment_id) to avoid order->payment fan-out double-counting.
+    terms:
+      - revenue by customer
+      - total revenue
+      - revenue per customer
+    objects: []
+    id: revenue-by-customer
+  - kind: definition
+    content: '''AOV'' = average order value = total revenue divided by number of orders.'
+    terms:
+      - AOV
+      - average order value
+    objects: []
+    id: aov
+  - kind: definition
+    content: 'Order status values: placed, shipped, completed, return_pending, returned.'
+    terms:
+      - placed
+      - shipped
+      - completed
+      - returned
+      - return pending
+      - order status
+    objects: []
+    id: order-status
+  - kind: definition
+    content: A 'completed' order has status = 'completed' (delivered and not returned).
+    terms:
+      - completed
+      - fulfilled
+      - delivered
+    objects: []
+    id: completed-orders
+  - kind: context
+    content: '''Returns'' means orders with status in (''returned'',''return_pending'').'
+    terms:
+      - returns
+      - returned
+      - refund
+    objects: []
+    id: returns
+  - kind: definition
+    content: 'Fulfillment centers are geographic regions: east_coast, west_coast, central.'
+    terms:
+      - west coast
+      - east coast
+      - central
+      - warehouse
+      - fulfillment center
+      - FC
+    objects: []
+    id: fulfillment-center-geography
+  - kind: definition
+    content: 'order_source is the channel the order came through: website, mobile_app, phone.'
+    terms:
+      - channel
+      - order source
+      - how ordered
+      - online
+      - phone order
+    objects: []
+    id: order-source
+  - kind: definition
+    content: '''App orders'' / ''mobile orders'' = order_source = ''mobile_app''.'
+    terms:
+      - app orders
+      - mobile orders
+      - in-app
+    objects: []
+    id: mobile-orders
+  - kind: definition
+    content: 'order_priority is the fulfilment urgency: normal, high, urgent (distinct from order_source).'
+    terms:
+      - order priority
+      - urgency
+      - rush orders
+    objects: []
+    id: order-priority
+  - kind: definition
+    content: '''CLV'' / ''LTV'' = customer_lifetime_value on the customers model.'
+    terms:
+      - CLV
+      - LTV
+      - lifetime value
+    objects: []
+    id: clv
+  - kind: context
+    content: A 'new' customer is one whose first_order is within the last 30 days.
+    terms:
+      - new customer
+      - recently acquired
+      - new signups
+    objects: []
+    id: new-customer
+  - kind: definition
+    content: A 'repeat' customer has number_of_orders > 1; a one-time customer has exactly 1.
+    terms:
+      - repeat customer
+      - returning customer
+      - one-time
+    objects: []
+    id: repeat-customer
+  - kind: context
+    content: '''Top customers'' means rank by customer_lifetime_value descending unless the user says otherwise.'
+    terms:
+      - top customers
+      - best customers
+      - biggest spenders
+    objects: []
+    id: top-customers
+  - kind: context
+    content: An active subscription has subscription_status = 'Current'; the is_active boolean is deprecated.
+    terms:
+      - active
+      - active subscriptions
+      - current subscriptions
+    objects: []
+    id: active-subscription
+  - kind: context
+    content: '''Churned'' subscriptions have subscription_status = ''Cancelled''.'
+    terms:
+      - churn
+      - churned
+      - cancelled
+      - cancellations
+    objects: []
+    id: churned-subscription
+  - kind: definition
+    content: '''Expired'' = subscription_status = ''Expired'' (lapsed, not actively cancelled).'
+    terms:
+      - expired
+      - lapsed
+    objects: []
+    id: expired-subscription
+  - kind: context
+    content: Subscription plan names (free, silver, gold, platinum, diamond) live in the plan table; join subscriptions.plan_id = plan.id.
+    terms:
+      - platinum
+      - gold
+      - silver
+      - diamond
+      - plan
+      - membership tier
+    objects: []
+    id: plan-tiers
+  - kind: context
+    content: '''Paid'' plans are any plan_name other than ''free'' (silver, gold, platinum, diamond).'
+    terms:
+      - paid plans
+      - paying customers
+      - premium
+    objects: []
+    id: paid-plans
+  - kind: definition
+    content: The top subscription tier is 'diamond', then platinum, gold, silver, free.
+    terms:
+      - top tier
+      - highest tier
+      - diamond
+    objects: []
+    id: top-tier
+  - kind: definition
+    content: 'Patient risk tiers by health_risk_score: Low (<40), Medium (40-69), High (>=70). ''High-risk'' = score >= 70.'
+    terms:
+      - high risk
+      - high-risk
+      - low risk
+      - medium risk
+      - risk tier
+    objects: []
+    id: high-risk-patients
+  - kind: definition
+    content: risk_category is the initial Low/Medium/High categorisation of a patient.
+    terms:
+      - risk category
+      - risk band
+    objects: []
+    id: risk-category
+  - kind: definition
+    content: 'Engagement tiers by engagement_score: Low (<40), Moderate (40-69), Highly Engaged (>=70).'
+    terms:
+      - engagement
+      - engaged patients
+      - highly engaged
+    objects: []
+    id: engagement-tiers
+  - kind: context
+    content: Patients 'overdue' for a visit have days_since_last_visit > 180.
+    terms:
+      - overdue
+      - overdue for visit
+      - due for a visit
+    objects: []
+    id: overdue-patients
+  - kind: context
+    content: 'Visit recency tiers from days_since_last_visit: Recent (<=30), Moderate (31-90), Overdue (91-180), Very Overdue (>180).'
+    terms:
+      - recent visit
+      - recency
+      - lapsed patients
+    objects: []
+    id: visit-recency
+  - kind: definition
+    content: A 'frequent' patient has total_visits > 10.
+    terms:
+      - frequent
+      - frequent visitor
+      - regulars
+    objects: []
+    id: frequent-visitor
+  - kind: definition
+    content: Work orders have priority (High/Medium/Low = urgency) and category (HVAC/Plumbing/Electrical/... = trade); they are separate fields.
+    terms:
+      - urgent
+      - high priority
+      - HVAC
+      - plumbing
+      - electrical
+      - maintenance category
+    objects: []
+    id: workorder-priority-vs-category
+  - kind: definition
+    content: '''WO'' = work order (the fm_work_orders model).'
+    terms:
+      - WO
+      - work order
+      - ticket
+      - maintenance request
+    objects: []
+    id: wo
+  - kind: definition
+    content: '''HVAC'' is a work-order category (heating, ventilation, air-conditioning); filter category = ''HVAC''.'
+    terms:
+      - HVAC
+      - air conditioning
+      - heating
+    objects: []
+    id: hvac
+  - kind: definition
+    content: '''SLA'' = service-level agreement; sla_met is the boolean of whether the work order met its SLA.'
+    terms:
+      - SLA
+      - service level
+      - sla compliance
+    objects: []
+    id: sla
+  - kind: definition
+    content: '''FTF'' = first-time fix; first_time_fix is true when the issue was resolved on the first visit.'
+    terms:
+      - FTF
+      - first time fix
+      - first-visit resolution
+    objects: []
+    id: ftf
+  - kind: context
+    content: '''Emergency'' call-outs are work orders flagged emergency_call = true.'
+    terms:
+      - emergency
+      - call-out
+      - urgent dispatch
+    objects: []
+    id: emergency-callouts
+  - kind: definition
+    content: response_time_minutes (time to first response) and resolution_time_hours (time to close) are different SLAs — don't conflate them.
+    terms:
+      - response time
+      - resolution time
+      - time to fix
+    objects: []
+    id: response-vs-resolution
+  - kind: context
+    content: '''Urgent'' maintenance means work orders with priority = ''High''.'
+    terms:
+      - urgent maintenance
+      - high priority work
+    objects: []
+    id: urgent-maintenance
+  - kind: context
+    content: The fiscal year starts in February.
+    terms:
+      - fiscal year
+      - FY
+    objects: []
+    id: fiscal-year
+  - kind: context
+    content: All reporting dates are in UTC unless the user asks for a specific timezone.
+    terms:
+      - timezone
+      - UTC
+      - date
+    objects: []
+    id: timezone
