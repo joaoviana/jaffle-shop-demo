@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: post-burst recovery save
+description: burst-2 save v2
 metricQuery:
   additionalMetrics: []
   customDimensions: []
