@@ -1,0 +1,23 @@
+contentType: dashboard
+description: Now with quarterly notes
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Sales Overview Q3
+slug: sales-overview
+spaceSlug: jaffle-shop
+tabs: []
+tiles:
+  - h: 3
+    properties:
+      content: Quarterly sales notes.
+      hideFrame: false
+      title: Notes
+    tabSlug: null
+    type: markdown
+    w: 6
+    x: 0
+    "y": 0
+verification: null
+version: 1
