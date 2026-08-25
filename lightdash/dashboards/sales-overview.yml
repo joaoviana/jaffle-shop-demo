@@ -1,10 +1,14 @@
+config:
+  isAddFilterDisabled: false
+  isDateZoomDisabled: false
+  pinnedParameters: []
 contentType: dashboard
-description: "Draft: added Q3 targets note"
+description: Test dashboard for content-as-code
 filters:
   dimensions: []
   metrics: []
   tableCalculations: []
-name: Sales Overview — with Q3 targets
+name: Sales Overview — regional deep dive
 slug: sales-overview
 spaceSlug: jaffle-shop
 tabs: []
@@ -13,7 +17,7 @@ tiles:
     properties:
       content: Quarterly sales notes.
       hideFrame: false
-      title: Notes
+      title: Notes2
     tabSlug: null
     type: markdown
     w: 6
