@@ -1,0 +1,11 @@
+access:
+  groups: []
+  inheritParentPermissions: false
+  projectMemberAccessRole: null
+  users:
+    - email: demo@lightdash.com
+      role: admin
+contentType: space
+slug: jaffle-shop
+spaceName: Jaffle shop
+version: 1
