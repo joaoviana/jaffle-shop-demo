@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Refined by the analytics team on this instance
+description: Tuned by the analytics team in this project
 metricQuery:
   additionalMetrics: []
   customDimensions: []
