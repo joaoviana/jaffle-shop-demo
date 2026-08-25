@@ -7,13 +7,11 @@ chartConfig:
     showColumnCalculation: false
     showResultsTotal: false
     showRowCalculation: false
-    showRowGrouping: false
     showSubtotals: false
-    showSubtotalsExpanded: false
     showTableNames: false
   type: table
 contentType: chart
-description: write_back off test
+description: burst save v1
 metricQuery:
   additionalMetrics: []
   customDimensions: []
