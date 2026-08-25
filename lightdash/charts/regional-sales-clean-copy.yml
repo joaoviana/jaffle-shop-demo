@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: burst-2 save v2
+description: burst-3 save v2
 metricQuery:
   additionalMetrics: []
   customDimensions: []
