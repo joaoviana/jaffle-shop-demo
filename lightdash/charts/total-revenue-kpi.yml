@@ -1,0 +1,27 @@
+chartConfig:
+  config:
+    label: Total Revenue
+  type: big_number
+contentType: chart
+description: All-time revenue across payment methods
+metricQuery:
+  additionalMetrics: []
+  dimensions: []
+  exploreName: payments
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - payments_total_revenue
+  sorts: []
+  tableCalculations: []
+  timezone: project_timezone
+name: Total Revenue
+slug: total-revenue-kpi
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - payments_total_revenue
+tableName: payments
+verification: null
+version: 1

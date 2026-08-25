@@ -1,0 +1,54 @@
+contentType: dashboard
+description: Recurring revenue and the subscriber base behind it.
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Subscription Health
+slug: subscription-health
+spaceSlug: jaffle-shop
+tabs: []
+tiles:
+- h: 3
+  properties:
+    content: MRR, plans, and how the base is growing.
+    title: Subscriptions
+  tabSlug: null
+  type: markdown
+  w: 36
+  x: 0
+  y: 0
+- h: 9
+  properties:
+    chartName: null
+    chartSlug: active-subscribers-kpi
+    hideTitle: false
+    title: null
+  tabSlug: null
+  type: saved_chart
+  w: 12
+  x: 0
+  y: 3
+- h: 9
+  properties:
+    chartName: null
+    chartSlug: mrr-by-plan
+    hideTitle: false
+    title: null
+  tabSlug: null
+  type: saved_chart
+  w: 24
+  x: 12
+  y: 3
+- h: 9
+  properties:
+    chartName: null
+    chartSlug: customer-signups-by-month
+    hideTitle: false
+    title: null
+  tabSlug: null
+  type: saved_chart
+  w: 36
+  x: 0
+  y: 12
+version: 1

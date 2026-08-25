@@ -1,0 +1,27 @@
+chartConfig:
+  config:
+    label: Active Subscribers
+  type: big_number
+contentType: chart
+description: Unique subscribers with an active plan
+metricQuery:
+  additionalMetrics: []
+  dimensions: []
+  exploreName: subscriptions
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - subscriptions_unique_subscribers
+  sorts: []
+  tableCalculations: []
+  timezone: project_timezone
+name: Active Subscribers
+slug: active-subscribers-kpi
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - subscriptions_unique_subscribers
+tableName: subscriptions
+verification: null
+version: 1

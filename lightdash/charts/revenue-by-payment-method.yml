@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    columns: {}
+    conditionalFormattings: []
+    hideRowNumbers: false
+    metricsAsRows: false
+    showColumnCalculation: true
+    showResultsTotal: false
+    showRowCalculation: false
+    showSubtotals: false
+    showTableNames: false
+  type: table
+contentType: chart
+description: Total revenue split by how customers paid
+metricQuery:
+  additionalMetrics: []
+  dimensions:
+  - payments_payment_method
+  exploreName: payments
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - payments_total_revenue
+  sorts:
+  - descending: false
+    fieldId: payments_payment_method
+  tableCalculations: []
+  timezone: project_timezone
+name: Revenue by Payment Method
+slug: revenue-by-payment-method
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - payments_payment_method
+  - payments_total_revenue
+tableName: payments
+verification: null
+version: 1

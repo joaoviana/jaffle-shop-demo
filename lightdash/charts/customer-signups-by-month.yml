@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    columns: {}
+    conditionalFormattings: []
+    hideRowNumbers: false
+    metricsAsRows: false
+    showColumnCalculation: true
+    showResultsTotal: false
+    showRowCalculation: false
+    showSubtotals: false
+    showTableNames: false
+  type: table
+contentType: chart
+description: New customers per month since launch
+metricQuery:
+  additionalMetrics: []
+  dimensions:
+  - customers_created_month
+  exploreName: customers
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - customers_unique_customer_count
+  sorts:
+  - descending: false
+    fieldId: customers_created_month
+  tableCalculations: []
+  timezone: project_timezone
+name: Customer Signups by Month
+slug: customer-signups-by-month
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - customers_created_month
+  - customers_unique_customer_count
+tableName: customers
+verification: null
+version: 1

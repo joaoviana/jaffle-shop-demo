@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    columns: {}
+    conditionalFormattings: []
+    hideRowNumbers: false
+    metricsAsRows: false
+    showColumnCalculation: true
+    showResultsTotal: false
+    showRowCalculation: false
+    showSubtotals: false
+    showTableNames: false
+  type: table
+contentType: chart
+description: Order counts and average size split by fulfilment status
+metricQuery:
+  additionalMetrics: []
+  dimensions:
+  - orders_status
+  exploreName: orders
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - orders_average_order_size
+  sorts:
+  - descending: false
+    fieldId: orders_status
+  tableCalculations: []
+  timezone: project_timezone
+name: Orders by Status
+slug: orders-by-status
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - orders_status
+  - orders_average_order_size
+tableName: orders
+verification: null
+version: 1

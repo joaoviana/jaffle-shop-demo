@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    columns: {}
+    conditionalFormattings: []
+    hideRowNumbers: false
+    metricsAsRows: false
+    showColumnCalculation: true
+    showResultsTotal: false
+    showRowCalculation: false
+    showSubtotals: false
+    showTableNames: false
+  type: table
+contentType: chart
+description: Monthly recurring revenue split by subscription plan
+metricQuery:
+  additionalMetrics: []
+  dimensions:
+  - subscriptions_plan_name
+  exploreName: subscriptions
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+  - subscriptions_total_monthly_mrr
+  sorts:
+  - descending: false
+    fieldId: subscriptions_plan_name
+  tableCalculations: []
+  timezone: project_timezone
+name: MRR by Plan
+slug: mrr-by-plan
+spaceSlug: jaffle-shop
+tableConfig:
+  columnOrder:
+  - subscriptions_plan_name
+  - subscriptions_total_monthly_mrr
+tableName: subscriptions
+verification: null
+version: 1

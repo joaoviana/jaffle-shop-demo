@@ -106,3 +106,7 @@ custom_granularities:
     sql: "TIMESTAMP '2024-01-01' + (FLOOR(EXTRACT(EPOCH FROM (${COLUMN} - TIMESTAMP '2024-01-01')) / 1209600) * INTERVAL '14 days')"
 defaults:
   case_sensitive: true
+content_as_code:
+  sync: true
+  write_back: true
+  drafts: true
