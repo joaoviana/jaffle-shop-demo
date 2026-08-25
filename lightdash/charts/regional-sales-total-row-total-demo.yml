@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Drifted for the --force test
+description: Refined by the analytics team on this instance
 metricQuery:
   additionalMetrics: []
   customDimensions: []
