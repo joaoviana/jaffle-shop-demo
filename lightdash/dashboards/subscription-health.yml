@@ -1,3 +1,7 @@
+config:
+  isAddFilterDisabled: false
+  isDateZoomDisabled: false
+  pinnedParameters: []
 contentType: dashboard
 description: Recurring revenue and the subscriber base behind it.
 filters:
@@ -9,46 +13,51 @@ slug: subscription-health
 spaceSlug: jaffle-shop
 tabs: []
 tiles:
-- h: 3
-  properties:
-    content: MRR, plans, and how the base is growing.
-    title: Subscriptions
-  tabSlug: null
-  type: markdown
-  w: 36
-  x: 0
-  y: 0
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: active-subscribers-kpi
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 12
-  x: 0
-  y: 3
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: mrr-by-plan
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 24
-  x: 12
-  y: 3
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: customer-signups-by-month
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 36
-  x: 0
-  y: 12
+  - h: 3
+    properties:
+      content: MRR, plans, and how the base is growing.
+      hideFrame: false
+      title: Subscriptions
+    tabSlug: null
+    type: markdown
+    w: 36
+    x: 0
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Active Subscribers
+      chartSlug: active-subscribers-kpi
+      hideTitle: false
+      title: hellloooo
+    tabSlug: null
+    tileSlug: active-subscribers-kpi
+    type: saved_chart
+    w: 12
+    x: 0
+    "y": 3
+  - h: 9
+    properties:
+      chartName: MRR by Plan
+      chartSlug: mrr-by-plan
+      hideTitle: true
+      title: ""
+    tabSlug: null
+    tileSlug: mrr-by-plan
+    type: saved_chart
+    w: 24
+    x: 12
+    "y": 3
+  - h: 9
+    properties:
+      chartName: Customer Signups by Month
+      chartSlug: customer-signups-by-month
+      hideTitle: false
+      title: ""
+    tabSlug: null
+    tileSlug: customer-signups-by-month
+    type: saved_chart
+    w: 36
+    x: 0
+    "y": 12
+verification: null
 version: 1
