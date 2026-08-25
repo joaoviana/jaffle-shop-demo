@@ -13,7 +13,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Monthly revenue by region with total() and row_total() table calculations
+description: write_back off test
 metricQuery:
   additionalMetrics: []
   customDimensions: []
