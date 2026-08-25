@@ -1,5 +1,9 @@
+config:
+  isAddFilterDisabled: false
+  isDateZoomDisabled: false
+  pinnedParameters: []
 contentType: dashboard
-description: 'The money picture: totals, payment mix, and order health.'
+description: "The money picture: totals, payment mix, and order health."
 filters:
   dimensions: []
   metrics: []
@@ -9,57 +13,63 @@ slug: revenue-overview
 spaceSlug: jaffle-shop
 tabs: []
 tiles:
-- h: 3
-  properties:
-    content: "How the Jaffle Shop makes money \u2014 refreshed on every deploy."
-    title: Revenue
-  tabSlug: null
-  type: markdown
-  w: 36
-  x: 0
-  y: 0
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: total-revenue-kpi
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 12
-  x: 0
-  y: 3
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: revenue-by-payment-method
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 24
-  x: 12
-  y: 3
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: orders-by-status
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 18
-  x: 0
-  y: 12
-- h: 9
-  properties:
-    chartName: null
-    chartSlug: avg-order-size-by-source
-    hideTitle: false
-    title: null
-  tabSlug: null
-  type: saved_chart
-  w: 18
-  x: 18
-  y: 12
+  - h: 3
+    properties:
+      content: How the Jaffle Shop makes money — refreshed on every deploy.
+      hideFrame: false
+      title: Revenue!!!!!
+    tabSlug: null
+    type: markdown
+    w: 36
+    x: 0
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Total Revenue
+      chartSlug: total-revenue-kpi
+      hideTitle: false
+      title: ""
+    tabSlug: null
+    tileSlug: total-revenue-kpi
+    type: saved_chart
+    w: 12
+    x: 0
+    "y": 3
+  - h: 9
+    properties:
+      chartName: Revenue by Payment Method
+      chartSlug: revenue-by-payment-method
+      hideTitle: false
+      title: ""
+    tabSlug: null
+    tileSlug: revenue-by-payment-method
+    type: saved_chart
+    w: 24
+    x: 12
+    "y": 3
+  - h: 9
+    properties:
+      chartName: Orders by Status
+      chartSlug: orders-by-status
+      hideTitle: false
+      title: ""
+    tabSlug: null
+    tileSlug: orders-by-status
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 12
+  - h: 9
+    properties:
+      chartName: Average Order Size by Source
+      chartSlug: avg-order-size-by-source
+      hideTitle: false
+      title: ""
+    tabSlug: null
+    tileSlug: avg-order-size-by-source
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 12
+verification: null
 version: 1
