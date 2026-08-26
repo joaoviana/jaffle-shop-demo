@@ -3,12 +3,12 @@ config:
   isDateZoomDisabled: false
   pinnedParameters: []
 contentType: dashboard
-description: "The money picture: totals, payment mix, and order health."
+description: drafted by demo2 for sync test
 filters:
   dimensions: []
   metrics: []
   tableCalculations: []
-name: Revenue Overview
+name: Revenue Overview (editor draft)
 slug: revenue-overview
 spaceSlug: jaffle-shop
 tabs: []
@@ -71,5 +71,4 @@ tiles:
     w: 18
     x: 18
     "y": 12
-verification: null
 version: 1
