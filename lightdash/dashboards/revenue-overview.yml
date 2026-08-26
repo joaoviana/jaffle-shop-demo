@@ -28,7 +28,7 @@ tiles:
       chartName: Total Revenue
       chartSlug: total-revenue-kpi
       hideTitle: false
-      title: ""
+      title: hi hello
     tabSlug: null
     tileSlug: total-revenue-kpi
     type: saved_chart
