@@ -47,7 +47,7 @@ metricQuery:
         row_total(${regional_sales.total_revenue})
       type: number
   timezone: project_timezone
-name: Instance Only Chart
+name: Instance Only Chart (edited on instance)
 pivotConfig:
   columns:
     - regional_sales_region
@@ -61,5 +61,4 @@ tableConfig:
     - _of_grand_total
     - _of_monthly_total
 tableName: regional_sales
-verification: null
 version: 1
