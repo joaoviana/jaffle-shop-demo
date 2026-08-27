@@ -1,10 +1,10 @@
 contentType: dashboard
-description: Test dashboard for content-as-code
+description: Private draft created for content-as-code sync certification.
 filters:
   dimensions: []
   metrics: []
   tableCalculations: []
-name: Sales Overview
+name: Sales Overview — editor draft proof
 slug: sales-overview
 spaceSlug: jaffle-shop
 tabs: []
@@ -19,5 +19,4 @@ tiles:
     w: 6
     x: 0
     "y": 0
-verification: null
 version: 1
