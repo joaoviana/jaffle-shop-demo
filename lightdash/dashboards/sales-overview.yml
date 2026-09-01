@@ -1,3 +1,7 @@
+config:
+  isAddFilterDisabled: false
+  isDateZoomDisabled: false
+  pinnedParameters: []
 contentType: dashboard
 description: Test dashboard for content-as-code
 filters:
@@ -19,5 +23,15 @@ tiles:
     w: 6
     x: 0
     "y": 0
-verification: null
+  - h: 9
+    properties:
+      content: >-
+        Added by demo2 (editor) on 2026-09-01. Should land as a draft, not
+        publish.
+      title: Editor note
+    tabSlug: null
+    type: markdown
+    w: 15
+    x: 0
+    "y": 1
 version: 1
