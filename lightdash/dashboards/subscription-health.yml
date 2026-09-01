@@ -3,7 +3,7 @@ config:
   isDateZoomDisabled: false
   pinnedParameters: []
 contentType: dashboard
-description: Recurring revenue and the subscriber base behind it.
+description: Subscription health (REPO CHANGE while an editor draft is open, E2)
 filters:
   dimensions: []
   metrics: []
