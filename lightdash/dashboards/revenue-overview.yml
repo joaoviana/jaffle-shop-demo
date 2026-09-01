@@ -3,7 +3,7 @@ config:
   isDateZoomDisabled: false
   pinnedParameters: []
 contentType: dashboard
-description: "The money picture: totals, payment mix, and order health."
+description: amended verify C (1788260342153)
 filters:
   dimensions: []
   metrics: []
@@ -71,5 +71,4 @@ tiles:
     w: 18
     x: 18
     "y": 12
-verification: null
 version: 1
