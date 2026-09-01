@@ -108,3 +108,4 @@ defaults:
   case_sensitive: true
 content_as_code:
   sync: true
+  path: .
