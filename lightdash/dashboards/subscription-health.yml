@@ -59,5 +59,13 @@ tiles:
     w: 36
     x: 0
     "y": 12
-verification: null
+  - h: 9
+    properties:
+      content: Draft D2 by demo2 — newer open draft.
+      title: Editor note D2
+    tabSlug: null
+    type: markdown
+    w: 15
+    x: 0
+    "y": 13
 version: 1
