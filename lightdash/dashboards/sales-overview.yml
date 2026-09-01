@@ -28,10 +28,20 @@ tiles:
       content: >-
         Added by demo2 (editor) on 2026-09-01. Should land as a draft, not
         publish.
+      hideFrame: false
       title: Editor note
     tabSlug: null
     type: markdown
     w: 15
     x: 0
     "y": 1
+  - h: 9
+    properties:
+      content: Draft by demo3 (editor B) — concurrent draft on the same dashboard.
+      title: Editor B note
+    tabSlug: null
+    type: markdown
+    w: 15
+    x: 0
+    "y": 2
 version: 1
