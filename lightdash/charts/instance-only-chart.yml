@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: "Stack verify PR1: adopt stale PR (2026-09-01T09:37:03.391Z)"
+description: "Fix check 10807: proposed at 2026-09-01T09:54:31.726Z"
 metricQuery:
   additionalMetrics: []
   customDimensions: []
