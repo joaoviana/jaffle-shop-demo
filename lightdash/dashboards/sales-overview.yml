@@ -3,7 +3,7 @@ config:
   isDateZoomDisabled: false
   pinnedParameters: []
 contentType: dashboard
-description: Test dashboard for content-as-code
+description: Stack verify PR2/PR3 draft (1788255428500)
 filters:
   dimensions: []
   metrics: []
@@ -38,6 +38,7 @@ tiles:
   - h: 9
     properties:
       content: Draft by demo2 (editor A).
+      hideFrame: false
       title: Editor A note
     tabSlug: null
     type: markdown
