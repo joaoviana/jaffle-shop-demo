@@ -3,7 +3,7 @@ config:
   isDateZoomDisabled: false
   pinnedParameters: []
 contentType: dashboard
-description: Fix check 10813 (1788256816774)
+description: Updated by the manager
 filters:
   dimensions: []
   metrics: []
@@ -69,4 +69,13 @@ tiles:
     w: 15
     x: 0
     "y": 13
+  - h: 3
+    properties:
+      content: Added by the manager draft
+      title: Admin tile
+    tabSlug: null
+    type: markdown
+    w: 12
+    x: 0
+    "y": 90
 version: 1
