@@ -11,20 +11,21 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Order counts and average size split by fulfilment status
+description: Proposed from the instance via propose API (E3) — orders-by-status
 metricQuery:
   additionalMetrics: []
+  customDimensions: []
   dimensions:
-  - orders_status
+    - orders_status
   exploreName: orders
   filters: {}
   limit: 500
   metricOverrides: {}
   metrics:
-  - orders_average_order_size
+    - orders_average_order_size
   sorts:
-  - descending: false
-    fieldId: orders_status
+    - descending: false
+      fieldId: orders_status
   tableCalculations: []
   timezone: project_timezone
 name: Orders by Status
@@ -32,8 +33,7 @@ slug: orders-by-status
 spaceSlug: jaffle-shop
 tableConfig:
   columnOrder:
-  - orders_status
-  - orders_average_order_size
+    - orders_status
+    - orders_average_order_size
 tableName: orders
-verification: null
 version: 1
