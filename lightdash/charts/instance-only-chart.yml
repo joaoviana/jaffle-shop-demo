@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Proposed from the instance via propose API (E3) — instance-only-chart
+description: "Stack verify PR1: adopt stale PR (2026-09-01T09:37:03.391Z)"
 metricQuery:
   additionalMetrics: []
   customDimensions: []
