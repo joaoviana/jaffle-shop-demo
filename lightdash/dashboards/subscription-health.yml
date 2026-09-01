@@ -8,7 +8,7 @@ filters:
   dimensions: []
   metrics: []
   tableCalculations: []
-name: Subscription Health
+name: Subscription Health (editor)
 slug: subscription-health
 spaceSlug: jaffle-shop
 tabs: []
@@ -72,6 +72,7 @@ tiles:
   - h: 3
     properties:
       content: Added by the manager draft
+      hideFrame: false
       title: Admin tile
     tabSlug: null
     type: markdown
