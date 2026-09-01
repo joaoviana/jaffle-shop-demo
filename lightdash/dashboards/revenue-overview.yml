@@ -71,5 +71,15 @@ tiles:
     w: 18
     x: 18
     "y": 12
-verification: null
+  - h: 9
+    properties:
+      content: >-
+        Added by demo2 to verify author credit, closed-PR handling and the draft
+        toast.
+      title: Editor note (fix check)
+    tabSlug: null
+    type: markdown
+    w: 15
+    x: 0
+    "y": 13
 version: 1
