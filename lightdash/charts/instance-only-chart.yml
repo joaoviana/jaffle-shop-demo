@@ -11,7 +11,7 @@ chartConfig:
     showTableNames: false
   type: table
 contentType: chart
-description: Created on the instance, never uploaded from git
+description: Proposed from the instance via propose API (E3) — instance-only-chart
 metricQuery:
   additionalMetrics: []
   customDimensions: []
@@ -47,7 +47,7 @@ metricQuery:
         row_total(${regional_sales.total_revenue})
       type: number
   timezone: project_timezone
-name: Instance Only Chart (edited on instance)
+name: Instance Only Chart
 pivotConfig:
   columns:
     - regional_sales_region
