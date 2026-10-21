@@ -265,3 +265,15 @@ models:
         meta:
           dimension:
             type: number
+      - name: second_order_within_30_days
+        description: "True if the customer placed a second order within 30 days of their first order. False if they have only one order or their second order came more than 30 days later."
+        meta:
+          dimension:
+            type: boolean
+            label: "Second order within 30 days"
+          metrics:
+            repeat_purchase_rate_30d:
+              label: "Repeat purchase rate (30d)"
+              description: "Percentage of customers who placed a second order within 30 days of their first order. Calculated as COUNT of customers where second_order_within_30_days = true divided by total unique customers."
+              type: count_distinct
+              sql: "CASE WHEN ${second_order_within_30_days} THEN ${customer_id} END"
