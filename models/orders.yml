@@ -162,6 +162,11 @@ models:
                   - status:
                       - completed
                       - shipped
+              returned_order_count:
+                label: Returned Order Count
+                description: Total number of orders with a status of 'returned'. Use this alongside completed_order_count and unique_order_count to calculate return rates.
+                type: count_distinct
+                sql: case when status = 'returned' then order_id end
         meta:
           dimension:
             type: number
