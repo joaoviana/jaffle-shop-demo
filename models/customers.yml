@@ -24,6 +24,9 @@ models:
             relationship: many-to-one
             label: Subscription Plan
             description: The subscription plan associated with this customer's membership
+          - join: subscriptions
+            sql_on: ${customers.customer_id} = ${subscriptions.customer_id}
+            relationship: one-to-many
           - join: orders
             sql_on: ${customers.customer_id} = ${orders.customer_id}
             relationship: one-to-many
