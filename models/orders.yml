@@ -155,6 +155,16 @@ models:
                   categories: [ "revenue_growth" ]
                 drivers:
                   - unique_order_count
+              cancelled_order_count:
+                label: Cancelled order count
+                description: Total number of cancelled orders. Use alongside completed_order_count to monitor cancellation trends and calculate cancellation rate.
+                type: count_distinct
+                filters:
+                  - status: cancelled
+                spotlight:
+                  categories: [ "revenue_growth" ]
+                drivers:
+                  - unique_order_count
               completed_or_shipped_order_count:
                 label: Completed or Shipped Order Count
                 type: count_distinct
