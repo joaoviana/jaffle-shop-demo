@@ -112,6 +112,13 @@ models:
             drivers:
               - total_order_amount
               - customers.average_age
+          return_rate:
+            label: Return Rate
+            description: "Percentage of orders with status 'returned' or 'return_pending' out of all orders. Measures the proportion of orders that were returned."
+            type: number
+            sql: CAST(COUNT(CASE WHEN status IN ('returned', 'return_pending') THEN order_id END) AS FLOAT) / NULLIF(COUNT(order_id), 0)
+            format: percent
+            round: 2
         default_time_dimension:
           field: order_date
           interval: MONTH
