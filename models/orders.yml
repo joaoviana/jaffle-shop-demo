@@ -104,6 +104,25 @@ models:
             description: "Average deduped revenue per order. References a cross-model sum_distinct metric to test PROD-6869."
             format: usd
             round: 2
+          average_order_value:
+            label: AOV / Average Order Value
+            description: >
+              Average order value scoped to completed orders only (excludes returns and return_pending).
+              Calculated as total completed revenue divided by completed order count.
+              AOV = total_completed_order_amount / completed_order_count.
+            type: number
+            sql: ${total_completed_order_amount} / NULLIF(${completed_order_count}, 0)
+            format: usd
+            round: 2
+            ai_hint: |
+              AOV (Average Order Value) = completed revenue ÷ completed order count.
+              Use this metric — not average_order_size — when the user asks for AOV or average order value.
+              Excludes returned and return_pending orders.
+            spotlight:
+              categories: [ "revenue_growth" ]
+            drivers:
+              - total_completed_order_amount
+              - completed_order_count
           order_amount_plus_average_customer_age:
             type: number
             sql: ${total_order_amount} + ${customers.average_age}
@@ -147,7 +166,7 @@ models:
                   categories: [ "revenue_growth" ]
               completed_order_count:
                 label: Completed order count
-                description: Total number of completed orders
+                description: "Total number of completed orders (distinct count) — excludes returned and return_pending orders."
                 type: count_distinct
                 filters:
                   - is_completed: "true"
@@ -393,6 +412,8 @@ models:
                 format: usd
                 round: 2
               total_completed_order_amount:
+                label: Total completed order amount
+                description: "Sum of order amount for completed orders only — excludes returns and other non-completed statuses."
                 type: sum
                 format: usd
                 round: 2
