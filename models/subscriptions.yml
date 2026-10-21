@@ -172,6 +172,12 @@ models:
                 label: Cancelled Subscriptions
                 description: Number of cancelled subscriptions
                 sql: CASE WHEN subscription_status = 'Cancelled' THEN subscription_id ELSE NULL END
+              churn_rate:
+                type: number
+                label: Churn Rate
+                description: "Monthly subscription churn rate: cancelled subscriptions in the month divided by active subscriptions at the start of the month."
+                format: percent
+                sql: "${cancelled_subscriptions} / NULLIF(${current_subscriptions}, 0)"
 
       - name: months_remaining
         description: Months remaining for active subscriptions
