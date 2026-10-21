@@ -197,11 +197,20 @@ models:
                 "Urgent Care": "#FF6F00"
 
       - name: provider
-        description: Healthcare provider who conducted the visit
+        description: >
+          The clinician who conducted this specific visit (visit-level provider). Distinct from
+          `primary_care_provider` on `patient_health_scores`, which is the patient's standing
+          assigned primary care physician (PCP).
         config:
           meta:
             dimension:
               type: string
+              ai_hint: >
+                This is the visit-level provider (the clinician who conducted the visit), distinct
+                from `primary_care_provider` on `patient_health_scores` which is the patient's
+                assigned primary care physician. Use `visit_analytics.provider` when asking about
+                who performed a particular visit; use `primary_care_provider` for a patient's
+                assigned physician.
 
       - name: chief_complaint
         description: Primary reason for the visit
