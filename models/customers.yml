@@ -33,6 +33,7 @@ models:
         ai_hint:
           - This is a customers table.
           - Contains customer information and demographics.
+          - To analyze repeat customer rate by subscription plan and acquisition month, use number_of_orders (filter > 1 for repeat buyers), plan_name, and the created_month time grain — all available in this explore without parameter requirements.
     description: |
       # Customers
 
@@ -241,15 +242,39 @@ models:
           dimension:
             type: number
       - name: number_of_orders
-        description: ""
+        description: "Number of orders placed by this customer. Customers with more than 1 order are repeat customers."
         config:
           meta:
             tags: [ "ai" ]
             dimension:
-              hidden: true
+              ai_hint: "Use number_of_orders > 1 to filter for repeat customers (vs first-time buyers). Combine with plan_name and created_month to answer questions about repeat customer rate by subscription plan and acquisition cohort — both fields are available in this explore without parameter requirements."
         meta:
           dimension:
             type: number
+      - name: plan_name
+        description: "Subscription plan name for this customer (free, silver, gold, platinum, diamond), derived from the membership plan_id."
+        config:
+          meta:
+            tags: [ "ai" ]
+            dimension:
+              type: string
+              sql: |
+                CASE membership.plan_id
+                  WHEN 1 THEN 'free'
+                  WHEN 2 THEN 'silver'
+                  WHEN 3 THEN 'gold'
+                  WHEN 4 THEN 'platinum'
+                  WHEN 5 THEN 'diamond'
+                  ELSE NULL
+                END
+              label: "Subscription Plan Name"
+              ai_hint: "Customer's subscription plan type. Use with number_of_orders (> 1 for repeat customers) and created_month to analyze repeat customer rate by plan and acquisition month. This dimension is available in the customers explore without any parameter requirements — prefer this explore over subscriptions when combining plan with repeat customer metrics."
+              colors:
+                "free": "#E0E0E0"
+                "silver": "#C0C0C0"
+                "gold": "#FFD700"
+                "platinum": "#E5E4E2"
+                "diamond": "#B9F2FF"
       - name: customer_lifetime_value
         description: ""
         config:

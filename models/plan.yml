@@ -10,6 +10,9 @@ models:
     columns:
       - name: id
       - name: plan_name
+        meta:
+          dimension:
+            type: string
       - name: metadata
         meta:
           additional_dimensions:
