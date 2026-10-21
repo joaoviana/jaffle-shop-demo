@@ -27,12 +27,15 @@ models:
           - join: orders
             sql_on: ${customers.customer_id} = ${orders.customer_id}
             relationship: one-to-many
+            description: "LEFT JOIN — all customers are retained regardless of order history. Customers without any orders will have null values for all order dimensions (e.g. first_order, number_of_orders). Customer count metrics are therefore scoped to ALL customers, not filtered to customers-with-orders."
           - join: payments
             sql_on: ${orders.order_id} = ${payments.order_id}
             relationship: one-to-many
         ai_hint:
           - This is a customers table.
           - Contains customer information and demographics.
+          - The Customers explore joins to Orders using a LEFT JOIN, so ALL customers are included regardless of whether they have placed any order. Customer count metrics in this explore represent the total customer base, not just customers with orders.
+          - To check whether a specific customer has placed an order, use the first_order dimension (null means no orders placed). To count only customers who have placed at least one order, filter where first_order is not null.
     description: |
       # Customers
 
@@ -56,10 +59,10 @@ models:
                 tags: [ "ai", "period_metric" ]
                 type: count_distinct
                 label: Unique customer count
-                description: Total number of customers
+                description: "Total number of customers across the entire customer base. This counts ALL customers — including those who have never placed an order — because the Orders join is a LEFT JOIN that preserves every customer row. Use this metric for 'how many customers do we have in total?'"
                 spotlight:
                   categories: [ "core", "revenue_growth" ]
-                ai_hint: Unique customer count.
+                ai_hint: "Total customer count including customers with no orders. This is the correct metric for 'how many customers do we have?' questions. It is NOT filtered to customers-with-orders."
               total_order_amount_deduped:
                 type: sum_distinct
                 sql: ${orders.amount}
@@ -200,7 +203,7 @@ models:
             tags: [ "ai" ]
             type: timestamp
       - name: first_order
-        description: Date of the customers first order
+        description: "Date of the customer's first order. NULL means the customer has never placed an order. Use 'first_order is not null' to filter to customers-with-orders only, or 'first_order is null' to find customers who have never ordered."
         config:
           meta:
             dimension:
