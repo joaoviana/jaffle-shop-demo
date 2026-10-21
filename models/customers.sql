@@ -71,7 +71,12 @@ final as (
         customer_orders.number_of_orders,
         customer_payments.total_amount as customer_lifetime_value,
         {{ date_diff_days('customer_orders.first_order', 'customers.created') }} AS days_between_created_and_first_order,
-        {{ timestamp_diff_days('customer_orders.most_recent_order', 'customer_orders_latest.latest_order') }} AS days_since_last_order
+        {{ timestamp_diff_days('customer_orders.most_recent_order', 'customer_orders_latest.latest_order') }} AS days_since_last_order,
+        CASE
+            WHEN customer_orders.most_recent_order IS NULL THEN TRUE
+            WHEN {{ date_diff_days('current_date', 'customer_orders.most_recent_order') }} > 90 THEN TRUE
+            ELSE FALSE
+        END AS is_churned
 
     from customers
 

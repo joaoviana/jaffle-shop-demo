@@ -265,3 +265,31 @@ models:
         meta:
           dimension:
             type: number
+      - name: is_churned
+        description: "A customer is considered churned if they have not placed any order in the last 90 days (i.e., most_recent_order is null or the number of days since their last order exceeds 90)."
+        config:
+          meta:
+            dimension:
+              type: boolean
+              label: "Is Churned"
+            metrics:
+              churned_customer_count:
+                label: "Churned Customer Count"
+                type: count_distinct
+                sql: ${customer_id}
+                description: "Number of customers who have not placed an order in the last 90 days."
+                filters:
+                  - operator: equals
+                    values: ["true"]
+                    target:
+                      fieldId: is_churned
+              churn_rate:
+                label: "Churn Rate"
+                type: number
+                description: "Percentage of customers who are churned (no order in the last 90 days). Calculated as churned_customer_count / unique_customer_count."
+                sql: "${churned_customer_count} / NULLIF(${unique_customer_count}, 0)"
+                format: percent
+                round: 2
+        meta:
+          dimension:
+            type: boolean
