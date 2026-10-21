@@ -21,6 +21,15 @@ models:
         conversion:
           label: Conversion
           description: Metrics for conversion funnel analysis
+      joins:
+        - join: customers
+          sql_on: ${customers.customer_id} = ${product_events.user_id}
+          type: left
+          relationship: many-to-one
+        - join: subscriptions
+          sql_on: ${subscriptions.customer_id} = ${customers.customer_id}
+          type: left
+          relationship: many-to-one
     columns:
       - name: event_id
         description: "Unique identifier for each event"
