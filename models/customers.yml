@@ -51,6 +51,13 @@ models:
                 **Customer ID:** `${ value.raw }`
 
                 [View Profile](https://example.com/customer/${ value.raw }) | [Search Google](https://google.com/search?q=customer%20${ value.formatted | url_encode })
+            additional_dimensions:
+              customer_segment:
+                type: string
+                label: "Customer Segment"
+                description: "Customer segment based on their subscription plan tier (e.g. free, silver, gold, platinum, diamond). Derived from the customer's most recent subscription plan. Use this dimension to break down metrics like CLV, revenue, and order counts by customer tier."
+                sql: "${plan.plan_name}"
+                ai_hint: "Use this field when the user asks about customer segments, tiers, subscription plans, or wants to break down any metric by customer type or segment. This is the primary segmentation dimension for customers."
             metrics:
               unique_customer_count:
                 tags: [ "ai", "period_metric" ]
@@ -247,6 +254,7 @@ models:
             tags: [ "ai" ]
             dimension:
               hidden: true
+              ai_hint: "This is a count of orders per customer, not a customer segment. Do not use this as a proxy for customer segmentation. Use the customer_segment dimension instead."
         meta:
           dimension:
             type: number
