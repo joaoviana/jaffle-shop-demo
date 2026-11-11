@@ -79,3 +79,8 @@ models:
                 drivers:
                   - unique_payment_count
                   - orders.total_order_amount
+              largest_payment:
+                type: max
+                label: Largest payment
+                description: Largest single payment amount (AUD)
+                round: 2
