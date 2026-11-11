@@ -1,0 +1,9 @@
+type: model
+name: old_model
+label: Requests
+sql_from: public.pmt_req
+primary_key: pr_id
+dimensions:
+  - name: pr_id
+    type: number
+    sql: ${TABLE}.pr_id
