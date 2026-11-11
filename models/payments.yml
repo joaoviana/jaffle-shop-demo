@@ -79,3 +79,8 @@ models:
                 drivers:
                   - unique_payment_count
                   - orders.total_order_amount
+              min_payment_amount:
+                label: Smallest payment amount
+                type: min
+                description: Smallest single payment amount (AUD) across the payments in scope.
+                round: 2
