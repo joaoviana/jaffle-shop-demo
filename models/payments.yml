@@ -32,7 +32,7 @@ models:
             relationship: many-to-one
     columns:
       - name: payment_id
-        description: This is a unique identifier for a payment
+        description: Unique identifier for a payment, with one row per payment in this model.
         config:
           meta:
             metrics:
