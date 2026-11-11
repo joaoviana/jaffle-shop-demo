@@ -1,0 +1,15 @@
+type: model
+name: pmt_req
+label: Requests
+sql_from: public.pmt_req
+primary_key: pr_id
+dimensions:
+  - name: pr_id
+    type: number
+    sql: ${TABLE}.pr_id
+    metrics:
+      request_count:
+        type: count_distinct
+  - name: sts_cd
+    type: string
+    sql: ${TABLE}.sts_cd
