@@ -79,3 +79,8 @@ models:
                 drivers:
                   - unique_payment_count
                   - orders.total_order_amount
+              average_payment_amount:
+                type: average
+                label: Average payment amount
+                description: "Average amount (AUD) per individual payment."
+                round: 2
