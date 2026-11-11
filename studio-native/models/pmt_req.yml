@@ -1,6 +1,6 @@
 type: model
 name: pmt_req
-label: Requests
+label: Payment requests
 sql_from: public.pmt_req
 primary_key: pr_id
 dimensions:
@@ -10,6 +10,10 @@ dimensions:
     metrics:
       request_count:
         type: count_distinct
+      succeeded_request_count:
+        type: count_distinct
+        filters:
+          - sts_cd: S
   - name: sts_cd
     type: string
     sql: ${TABLE}.sts_cd
