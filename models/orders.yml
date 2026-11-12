@@ -205,6 +205,13 @@ models:
           - relationships:
               to: ref('customers')
               field: customer_id
+        config:
+          meta:
+            metrics:
+              try_out_customer_count:
+                label: Try Out Customer Count
+                description: Count of distinct customers who placed an order
+                type: count_distinct
         meta:
           dimension:
             type: number
