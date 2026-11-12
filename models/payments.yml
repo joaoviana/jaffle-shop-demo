@@ -41,6 +41,13 @@ models:
                 description: count of all payments
       - name: order_id
         description: Foreign key to the orders table
+        config:
+          meta:
+            metrics:
+              unique_orders:
+                type: count_distinct
+                label: Unique orders
+                description: Count of distinct orders that have at least one payment
       - name: payment_method
         description: Method of payment used, for example credit card
       - name: amount
