@@ -162,6 +162,10 @@ models:
                   - status:
                       - completed
                       - shipped
+              try_out_order_count:
+                label: Try Out Order Count
+                description: Count of distinct order IDs
+                type: count_distinct
         meta:
           dimension:
             type: number
