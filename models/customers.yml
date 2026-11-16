@@ -103,6 +103,10 @@ models:
                 type: count_distinct
                 label: Unique customer ids
                 description: Number of distinct customer IDs
+              latest_customer_id:
+                type: max
+                label: Latest customer id
+                description: Highest customer ID
         meta:
           dimension:
             type: number
