@@ -150,6 +150,13 @@ models:
             format: percent
             round: 2
             label: "Virtual Visit Rate"
+          avg_visit_cost:
+            type: average
+            sql: visit_cost
+            format: usd
+            round: 2
+            label: Average Visit Cost
+            description: Average cost per visit
 
         default_time_dimension:
           field: visit_date
