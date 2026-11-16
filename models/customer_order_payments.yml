@@ -96,6 +96,12 @@ models:
                   For an order with 3 items and 2 payments, shipping is counted 6 times!
                 format: usd
                 round: 2
+              max_shipping_cost:
+                type: max
+                sql: ${shipping_cost}
+                description: Highest shipping cost of any single order.
+                format: usd
+                round: 2
 
       # Line item grain columns
       - name: line_item_id
