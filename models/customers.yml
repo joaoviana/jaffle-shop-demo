@@ -7,7 +7,7 @@ models:
         parameters:
           customer_name:
             label: "Customer name"
-            description: "Filter subscriptions by customer name"
+            description: "Filter subscriptions by customer name (first and last)"
             options_from_dimension:
               dimension: "first_name"
               model: "customers"
