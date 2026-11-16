@@ -664,6 +664,12 @@ models:
                 format: usd
                 round: 2
                 label: Median shipping cost
+              p90_shipping_cost:
+                type: percentile
+                percentile: 90
+                format: usd
+                round: 2
+                label: P90 shipping cost
               shipping_cost_vs_order_value:
                 type: number
                 sql: AVG(shipping_cost / NULLIF(amount, 0))
