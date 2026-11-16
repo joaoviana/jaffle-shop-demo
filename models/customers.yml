@@ -99,6 +99,10 @@ models:
                   ### ⚠️ ${ value.formatted }
                   **Low** Average CLV - _Needs attention!_
                   {% endif %}{% endraw %}
+              unique_customer_ids:
+                type: count_distinct
+                label: Unique customer ids
+                description: Number of distinct customer IDs
         meta:
           dimension:
             type: number
