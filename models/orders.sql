@@ -59,7 +59,8 @@ final as (
 
         {% endfor -%}
 
-        order_payments.total_amount as amount
+        order_payments.total_amount as amount,
+        case when order_payments.total_amount > 100 then TRUE else FALSE end as is_large_order
 
     from orders
 

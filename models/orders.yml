@@ -198,6 +198,12 @@ models:
         meta:
           dimension:
             type: boolean
+      - name: is_large_order
+        description: True when the order amount is over $100
+        config:
+          meta:
+            dimension:
+              type: boolean
       - name: customer_id
         description: Foreign key to the customers table
         tests:
