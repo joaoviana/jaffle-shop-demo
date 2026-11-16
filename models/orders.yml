@@ -670,6 +670,11 @@ models:
                 format: usd
                 label: Max Shipping Cost
                 description: Highest shipping cost of any single order
+              min_shipping_cost:
+                type: min
+                format: usd
+                label: Min Shipping Cost
+                description: Lowest shipping cost of any single order
             additional_dimensions:
               shipping_cost_tier:
                 type: string
