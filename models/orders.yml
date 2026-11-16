@@ -2,8 +2,11 @@ version: 2
 models:
   - name: orders
     description: |
-      This table has basic information about orders, as well as some derived
-      facts based on payments
+      One row per order, with the order's details and its payment totals.
+      Amount is the sum of every payment recorded for the order, in dollars,
+      across all payment methods and with no filter on payment status.
+      The per-method amounts cover credit card, coupon, bank transfer and gift card.
+      Orders with no payments are kept, with an empty amount.
 
       {{ doc("orders_status") }}
     config:
