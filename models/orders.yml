@@ -669,6 +669,10 @@ models:
                 type: max
                 format: usd
                 label: Max shipping cost
+              min_shipping_cost:
+                type: min
+                format: usd
+                label: Min shipping cost
             additional_dimensions:
               shipping_cost_tier:
                 type: string
