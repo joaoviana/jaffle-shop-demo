@@ -3,7 +3,7 @@ models:
   - name: orders
     description: |
       This table has basic information about orders, as well as some derived
-      facts based on payments refunds
+      facts based on payments refunds and tax
 
       {{ doc("orders_status") }}
     config:
