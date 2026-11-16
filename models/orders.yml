@@ -482,6 +482,11 @@ models:
           meta:
             dimension:
               hidden: true
+            metrics:
+              credit_card_total:
+                label: Credit Card Total
+                description: Total revenue (AUD) paid via credit card
+                type: sum
         meta:
           dimension:
             type: number
