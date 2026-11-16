@@ -9,6 +9,8 @@ models:
       Orders with no payments are kept, with an empty amount. Refunds are not subtracted.
 
       {{ doc("orders_status") }}
+
+      Statuses come from the order system.
     config:
       tags: [ "core", "ai" ]
       meta:
