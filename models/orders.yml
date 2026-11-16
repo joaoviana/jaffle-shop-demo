@@ -208,6 +208,11 @@ models:
         meta:
           dimension:
             type: number
+          metrics:
+            unique_customers:
+              label: Unique customers
+              description: Number of distinct customers who placed an order
+              type: count_distinct
       - name: date_dim_param_test
         description: "Example of date based on another dimension"
         meta:
