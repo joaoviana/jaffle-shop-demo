@@ -659,12 +659,26 @@ models:
                 format: usd
                 round: 2
                 label: Average Shipping Cost
+              median_shipping_cost:
+                type: median
+                format: usd
+                round: 2
+                label: Median shipping cost
+              p90_shipping_cost:
+                type: percentile
+                percentile: 90
+                format: usd
+                round: 2
+                label: P90 shipping cost
               shipping_cost_vs_order_value:
                 type: number
                 sql: AVG(shipping_cost / NULLIF(amount, 0))
                 format: percent
                 round: 2
                 label: Shipping Cost as % of Order Value
+              shipping_cost_ratio:
+                type: number
+                sql: ${does_not_exist} / ${shipping_cost}
             additional_dimensions:
               shipping_cost_tier:
                 type: string
