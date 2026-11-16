@@ -665,6 +665,11 @@ models:
                 format: percent
                 round: 2
                 label: Shipping Cost as % of Order Value
+              max_shipping_cost:
+                type: max
+                format: usd
+                label: Max Shipping Cost
+                description: Highest shipping cost of any single order
             additional_dimensions:
               shipping_cost_tier:
                 type: string
