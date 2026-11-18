@@ -12,3 +12,7 @@ dimensions:
         type: count_distinct
         label: Request count
         description: Number of distinct payment requests.
+      latest_request_id:
+        type: max
+        label: Latest request id
+        description: Highest payment request id.
