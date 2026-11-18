@@ -7,3 +7,12 @@ dimensions:
   - name: pr_id
     type: number
     sql: ${TABLE}.pr_id
+    metrics:
+      request_count:
+        type: count_distinct
+        label: Request count
+        description: Number of distinct payment requests.
+      latest_request_id:
+        type: max
+        label: Latest request id
+        description: Highest payment request id.
