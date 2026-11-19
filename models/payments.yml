@@ -41,6 +41,15 @@ models:
                 description: count of all payments
       - name: order_id
         description: The order this payment belongs to.
+        config:
+          meta:
+            metrics:
+              orders_paid:
+                type: count_distinct
+                label: Orders paid
+                description: >-
+                  Number of distinct orders with at least one payment. Counts
+                  each order once even when it has several payment rows
       - name: payment_method
         description: How the payment was made
       - name: amount
@@ -79,3 +88,9 @@ models:
                 drivers:
                   - unique_payment_count
                   - orders.total_order_amount
+              average_payment_amount:
+                type: average
+                label: Average payment amount
+                description: Average amount of a single payment, in US dollars
+                format: usd
+                round: 2
