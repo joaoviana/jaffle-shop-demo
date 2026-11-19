@@ -409,3 +409,7 @@ models:
               type: number
               description: "Raw column aggregation divided by aggregate metric ref"
               sql: sum(event_id) / NULLIF(${count}, 0)
+            distinct_events:
+              type: count_distinct
+              label: Distinct events
+              description: Count of distinct events, by unique event ID
