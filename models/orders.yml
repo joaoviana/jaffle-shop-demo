@@ -291,7 +291,7 @@ models:
           dimension:
             type: date
       - name: status
-        description: '{{ doc("orders_status") }}'
+        description: Current status of the order
         config:
           meta:
             dimension:
