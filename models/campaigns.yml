@@ -45,6 +45,9 @@ models:
                 type: count_distinct
                 filters:
                   - status: "active"
+              distinct_campaigns:
+                type: count_distinct
+                label: Campaigns
 
       - name: campaign_name
         description: Name of the marketing campaign
