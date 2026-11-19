@@ -124,7 +124,7 @@ models:
           dimension:
             type: string
       - name: last_name
-        description: Customer's last name. PII.
+        description: Customer's family name
         config:
           meta:
             dimension:
