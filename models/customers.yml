@@ -41,7 +41,7 @@ models:
       facts based on a customer's orders
     columns:
       - name: customer_id
-        description: This is a unique identifier for a customer
+        description: Identifier of the customer, used for joins
         tests:
           - unique
           - not_null
