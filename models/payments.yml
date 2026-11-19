@@ -40,7 +40,7 @@ models:
                 type: count_distinct
                 description: count of all payments
       - name: order_id
-        description: Foreign key to the orders table
+        description: The order this payment belongs to.
       - name: payment_method
         description: How the payment was made
       - name: amount
