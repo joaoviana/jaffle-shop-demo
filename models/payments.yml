@@ -44,7 +44,7 @@ models:
       - name: payment_method
         description: How the payment was made
       - name: amount
-        description: Total amount (AUD) of the individual payment
+        description: Amount paid, in US dollars
         config:
           meta:
             metrics:
