@@ -1,4 +1,4 @@
-version: 2
+version: 2  # hand edit A
 models:
   - name: orders
     description: |

@@ -44,7 +44,7 @@ models:
       - name: payment_method
         description: Method of payment used, for example credit card
       - name: amount
-        description: Total amount (AUD) of the individual payment
+        description: Amount of the payment in USD.
         config:
           meta:
             metrics:
