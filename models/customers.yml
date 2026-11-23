@@ -99,6 +99,23 @@ models:
                   ### ⚠️ ${ value.formatted }
                   **Low** Average CLV - _Needs attention!_
                   {% endif %}{% endraw %}
+              repeat_customer_count:
+                type: count_distinct
+                label: Repeat customer count
+                description: Customers with more than one order.
+                filters:
+                  - number_of_orders: "> 1"
+              repeat_customer_rate:
+                type: number
+                label: Repeat customer rate
+                description: >-
+                  Share of all customers who have placed more than one order.
+                  Customers with no orders stay in the denominator.
+                sql: >-
+                  ${repeat_customer_count} / NULLIF(${unique_customer_count},
+                  0.0)
+                format: percent
+                round: 1
         meta:
           dimension:
             type: number
