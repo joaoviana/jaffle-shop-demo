@@ -112,6 +112,16 @@ models:
             drivers:
               - total_order_amount
               - customers.average_age
+          return_rate:
+            label: Return rate
+            description: Share of orders that were returned or are pending return
+            type: number
+            sql: ${returned_order_count} / NULLIF(${unique_order_count}, 0)
+            format: percent
+            round: 1
+            drivers:
+              - returned_order_count
+              - unique_order_count
         default_time_dimension:
           field: order_date
           interval: MONTH
@@ -166,6 +176,16 @@ models:
                 label: Try Out Order Count
                 description: Count of distinct order IDs
                 type: count_distinct
+              returned_order_count:
+                label: Returned order count
+                description: Number of orders with status returned or return_pending
+                type: count_distinct
+                filters:
+                  - status:
+                      - returned
+                      - return_pending
+                drivers:
+                  - unique_order_count
         meta:
           dimension:
             type: number
