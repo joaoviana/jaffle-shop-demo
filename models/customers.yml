@@ -264,6 +264,10 @@ models:
             tags: [ "ai" ]
             dimension:
               hidden: true
+            metrics:
+              average_orders_per_customer:
+                label: Average orders per customer
+                type: average
         meta:
           dimension:
             type: number
