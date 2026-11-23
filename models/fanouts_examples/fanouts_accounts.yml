@@ -9,7 +9,7 @@ models:
         'Enterprise'
       description:
         List of all customer and prospective customer fanouts_accounts pulled from
-        our CRM
+        our CRM hello!
       joins:
         - join: fanouts_deals
           sql_on: ${fanouts_accounts.account_id} = ${fanouts_deals.account_id}
