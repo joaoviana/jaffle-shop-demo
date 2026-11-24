@@ -40,7 +40,7 @@ models:
       facts based on a customer's orders
     columns:
       - name: customer_id
-        description: This is a unique identifier for a customer (edited by hand, no AI)
+        description: This is a unique identifier for a customer (edited by hand, no AI) (second pass)
         tests:
           - unique
           - not_null
