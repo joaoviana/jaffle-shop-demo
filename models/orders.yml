@@ -2,8 +2,8 @@ version: 2
 models:
   - name: orders
     description: |
-      This table has basic information about orders, as well as some calculated
-      facts based on payments refunds and tax.
+      This table has basic information about orders, as well as some derived
+      facts based on payments refunds and tax.Q
 
       {{ doc("orders_status") }}
     config:
