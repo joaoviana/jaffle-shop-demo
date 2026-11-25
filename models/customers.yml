@@ -120,12 +120,7 @@ models:
           dimension:
             type: number
       - name: first_name
-        description: |
-          # First name
-          ---
-          Customer's first name. PII.
-          ---
-          Supports URLs
+        description: Given name of the customer
         config:
           meta:
             dimension:
