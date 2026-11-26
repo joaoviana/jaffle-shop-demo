@@ -8,7 +8,7 @@ models:
       including their names, geographic coordinates, and passenger volume.
     columns:
       - name: name
-        description: Airport name
+        description: Airport name baby
 
       - name: lon
         description: Longitude coordinate (-180 to 180)
