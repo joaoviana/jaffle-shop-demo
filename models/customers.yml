@@ -136,7 +136,7 @@ models:
           dimension:
             type: string
       - name: last_name
-        description: Customer's family name
+        description: Family name of the customer (live check)
         config:
           meta:
             dimension:
