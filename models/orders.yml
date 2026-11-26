@@ -521,7 +521,7 @@ models:
             metrics:
               coupon_total:
                 label: Coupon Total
-                description: Total coupon spend (second save f7543)
+                description: Total coupon spend (third save)
                 type: sum
         meta:
           dimension:
