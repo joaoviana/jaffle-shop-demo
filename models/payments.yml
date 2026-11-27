@@ -41,6 +41,8 @@ models:
                 description: count of all payments
       - name: order_id
         description: The order this payment belongs to.
+      - name: usage_channel
+        description: Where the payment came from
       - name: payment_method
         description: How the payment was made
       - name: amount
