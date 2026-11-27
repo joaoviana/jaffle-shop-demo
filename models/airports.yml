@@ -14,7 +14,7 @@ models:
         description: Longitude coordinate (-180 to 180)
 
       - name: lat
-        description: "Checked by the suite 11:42:17 and by hand"
+        description: Latitude coordinate (-90 to 90)
 
       - name: volume
         description: Annual passenger volume (0 for airports without volume data)
