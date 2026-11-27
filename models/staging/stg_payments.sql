@@ -14,6 +14,7 @@ renamed as (
         id as payment_id,
         order_id,
         payment_method,
+        payment_method || '_channel' as usage_channel,
 
         --`amount` is currently stored in cents, so we convert it to dollars
         {{ cast_decimal('amount') }}  / 100 as amount
