@@ -7,3 +7,4 @@ dimensions:
   - name: pr_id
     type: number
     sql: ${TABLE}.pr_id
+    description: Checked by the suite 11:42:17 (code)
